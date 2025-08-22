@@ -157,6 +157,33 @@ so that the parametrization used in each context will be defined by the use of t
 
 
 
+## Likelihood and ML estimation
 
+For a single observation, we have
+$$
+\ell(p,\lambda) =
+\begin{cases}
+\log(p) 
+  & z=0 \\
+\log\left(\frac{(1-p)\lambda^y}{(e^\lambda-1)y!}\right)
+  = \log(1-p)+\log(\lambda^y)-\log(e^\lambda-1)-\log(y!))
+  & z=1,2,\ldots
+\end{cases}
+$$
+and, for an i.i.d. sample $Z_1,Z_2,\ldots,X_n$ of $ZModPoi(p, \lambda)$, we have, 
+$$
+\begin{align}
+L(p,\lambda)
+  & = P(Z_1=z_1,\ldots,Z_n=z_n) \\
+  & = \prod_{i=1}^n P(Z=z_i) \\
+  & = \prod_{i \in M} P(Z=z_i) \times
+      \prod_{i \not\in M} P(Z=z_i) \\
+  & = \prod_{i \in M} P(Z=0) \times
+      \prod_{i \not\in M} P(Z=z_i) \\
+  & = \prod_{i \in M} e^{-\lambda} \times
+      \prod_{i \not\in M} P(Z=z_i) \\
+\end{align}
+$$
+where $M$ is the set $M=\{i=1,2,\ldots,n; z_i=0\}$ of positions of the observed zeroes and $m=#M$ is its size.
 
 
