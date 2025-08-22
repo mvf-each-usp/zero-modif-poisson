@@ -61,8 +61,10 @@ e^{-\lambda+\theta}<1
   \Leftrightarrow
     -\lambda+\theta<0
   \Leftrightarrow
-    \theta<\lambda
+    \theta<\lambda.
 $$
+This way, we can refer to $Z \sim ZModPoi(\theta,\lambda)$ for $\lambda>0$ and $\theta<\lambda$ as the model in its second parametrization.
+
 For algebraic ease, we may use a third parametrization setting $1-p=e^\gamma$, subject to $0<e^\gamma<1 \Leftrightarrow \gamma<0$, 
 $$
 P(Z=z) = 
