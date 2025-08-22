@@ -63,8 +63,20 @@ e^{-\lambda+\theta}<1
   \Leftrightarrow
     \theta<\lambda
 $$
+For algebraic ease, we may use a third parametrization setting $1-p=e^\gamma$, subject to $0<e^\gamma<1 \Leftrightarrow \gamma<0$, 
+$$
+P(Z=z) = 
+\begin{cases}
+1-e^{\gamma}, 
+  & z=0\\
+\frac{e^\gamma\lambda^y}{(e^{\lambda}-1)y!}
+  & z=1,2,\ldots
+\end{cases}
+$$
+so that the parametrization used in each context will be defined by the use of the three different parameters.
 
 
-A third parametrization can be obtained by setting $1-p=e^\
+
+
 
 
