@@ -74,3 +74,6 @@ rsconnect/
 # Temporary image files
 *.png
 *.jpg
+
+# Temporary directories for renderizing HTML
+*_files/
