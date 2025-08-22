@@ -1,0 +1,69 @@
+---
+title: "Zero-modified Poisson distribution"
+author: "Marcelo Ventura Freire"
+format: 
+  # pdf
+  html
+---
+
+## Introduction
+
+I did not invented this model, but I will give the proper credits later, when I write a proper introduction.
+
+
+
+## Definitions
+
+From the (regular) Poisson distribution $X \sim Poi(\lambda)$ with $\lambda>0$
+$$
+P(X=x) = \frac{e^{-\lambda}\lambda^x}{x!}, \qquad x\in\{0,1,2,\ldots\},
+$$
+we define:
+
+- the *truncated Poisson distribution* $Y \sim TruncPoi(\lambda)$, with 
+  $\lambda>0$
+  $$
+  P(Y=y) 
+    = P(X=y|X>0) 
+    = \frac{P(X=y)}{1-P(X=0)}
+    = \frac{\frac{e^{-\lambda}\lambda^y}{y!}}{(1-e^{-\lambda})}
+    = \frac{\lambda^y}{(e^\lambda-1)y!},
+  $$
+- the *zero-modified Poisson distribution* $Z \sim ZModPoi(p, \lambda)$, with 
+  $p\in(0,1)$ and $\lambda>0$
+  $$
+  P(Z=z) =
+    \begin{cases}
+    p 
+      & z=0\\
+    (1-p) P(Y=z) 
+      = \frac{(1-p)\lambda^y}{(e^\lambda-1)y!},
+      & z=1,2,\ldots
+    \end{cases}
+  $$
+
+Note that the regular, the zero-inflated, and the zero-deflated Poisson distributions can be obtained respectively when $p=P(X=0)=e^{-\lambda}$, $p>e^{-\lambda}$, and $p<e^{-\lambda}$.
+
+A second parametrization for the zero-modified Poisson distribution can be obtained setting $p=e^{-\lambda+\theta}$, so that, for $Z \sim ZModPoi(\theta, \lambda)$, we have
+$$
+P(Z=z) = 
+\begin{cases}
+e^{-\lambda+\theta}, 
+  & z=0\\
+\frac{(1-e^{-\lambda+\theta})\lambda^y}{(e^{\lambda}-1)y!}
+  & z=1,2,\ldots
+\end{cases}
+$$
+in which case, Poisson, zero-inflated Poisson, and zero-deflated can be obtained when $\theta=0$, $\theta>0$, and $\theta<0$. However, a constrain must be set o $\theta$ so that $0<p<1$:
+$$
+e^{-\lambda+\theta}<1
+  \Leftrightarrow
+    -\lambda+\theta<0
+  \Leftrightarrow
+    \theta<\lambda
+$$
+
+
+A third parametrization can be obtained by setting $1-p=e^\
+
+
