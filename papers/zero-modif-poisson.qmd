@@ -42,7 +42,8 @@ we define:
     \end{cases}
   $$
 
-Note that the regular, the zero-inflated, and the zero-deflated Poisson distributions can be obtained respectively when $p=P(X=0)=e^{-\lambda}$, $p>e^{-\lambda}$, and $p<e^{-\lambda}$.
+
+Note that the regular, the zero-inflated, the zero-deflated, and the truncated Poisson distributions can be obtained respectively when $p=P(X=0)=e^{-\lambda}$, $p>e^{-\lambda}$, $p<e^{-\lambda}$, and $p=0$ (which can be seen as a limit case of the previous).
 
 A second parametrization for the zero-modified Poisson distribution can be obtained setting $p=e^{-\lambda+\theta}$, so that, for $Z \sim ZModPoi(\theta, \lambda)$, we have
 $$
