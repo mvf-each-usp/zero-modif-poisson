@@ -55,7 +55,7 @@ e^{-\lambda+\theta},
   & z=1,2,\ldots
 \end{cases}
 $$
-in which case, Poisson, zero-inflated Poisson, and zero-deflated can be obtained when $\theta=0$, $\theta>0$, and $\theta<0$. However, a constrain must be set o $\theta$ so that $0<p<1$:
+in which case, regular, zero-inflated, and zero-deflated Poisson can be obtained when $\theta=0$, $\theta>0$, and $\theta<0$. However, a constraint must be set on $\theta$ so that $0<p<1$:
 $$
 e^{-\lambda+\theta}<1
   \Leftrightarrow
