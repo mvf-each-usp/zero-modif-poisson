@@ -47,6 +47,7 @@ we define:
     = \frac{\frac{e^{-\lambda}\lambda^y}{y!}}{(1-e^{-\lambda})}
     = \frac{\lambda^y}{(e^\lambda-1)y!},
   $$
+  for $y=1,2,\ldots$
 - the *zero-modified Poisson distribution* $Z \sim ZModPoi(p, \lambda)$, with 
   $p\in(0,1)$ and $\lambda>0$
   $$
@@ -55,7 +56,7 @@ we define:
     p 
       & z=0\\
     (1-p) P(Y=z) 
-      = \frac{(1-p)\lambda^y}{(e^\lambda-1)y!},
+      = \frac{(1-p)\lambda^z}{(e^\lambda-1)z!},
       & z=1,2,\ldots
     \end{cases}
   $$
