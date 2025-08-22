@@ -3,9 +3,14 @@ title: "Zero-modified Poisson distribution"
 author: "Marcelo Ventura Freire"
 format: 
   # pdf
-  html
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 2
+    number-sections: true
 execute: 
   echo: false
+  cache: true
 ---
 
 ```{r}
@@ -16,6 +21,9 @@ library(tidyverse)  # my go-to package
 library(glue)
 library(actuar)     # dzmpois() 
 library(latex2exp)  # TeX()
+library(patchwork)
+
+`%$%` <- paste0  # concatenação de string
 ```
 
 
