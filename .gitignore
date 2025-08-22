@@ -50,7 +50,7 @@ rsconnect/
 
 # Renderized output files
 *.pdf
-*.htlm
+*.html
 
 # Temporary latex files
 *.tex
