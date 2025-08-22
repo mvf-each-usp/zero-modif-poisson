@@ -4,7 +4,21 @@ author: "Marcelo Ventura Freire"
 format: 
   # pdf
   html
+execute: 
+  echo: false
 ---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)  # my go-to package
+library(glue)
+library(actuar)     # dzmpois() 
+library(latex2exp)  # TeX()
+```
+
+
 
 ## Introduction
 
@@ -44,6 +58,65 @@ we define:
 
 
 Note that the regular, the zero-inflated, the zero-deflated, and the truncated Poisson distributions can be obtained respectively when $p=P(X=0)=e^{-\lambda}$, $p>e^{-\lambda}$, $p<e^{-\lambda}$, and $p=0$ (which can be seen as a limit case of the previous).
+
+```{r}
+#| label: graph-1st-param
+
+plot.distribs <- function(lambda) {
+  p0 <- dpois(0, lambda)
+  xfinal <- max(lambda*2,5)
+  
+  tibble(
+    x = 0:xfinal,
+    RegPoi =  
+      dzmpois(x, lambda, p0),
+    TruncPoi =
+      dzmpois(x, lambda, 0),
+    ZDeflPoi = 
+      dzmpois(x, lambda, 0.5 * p0),
+    ZInfPoi = 
+      dzmpois(x, lambda, 1.5 * p0),
+  ) |> 
+    pivot_longer(
+      cols = RegPoi:ZInfPoi,
+      values_to = "y",
+      names_to = "distrib",
+    ) |> 
+    ggplot() +
+    aes(x = x, y = y, group = distrib, color = distrib) +
+    geom_point() +
+    geom_line() +
+    labs(
+      title = "Comparing regular, truncated, zero-deflated, and zero-inflated",
+      subtitle = 
+        r"[$\lambda={lambda}$ and $p=P(X=0), 0, 0.5 \cdot P(X=0), 1.5 \cdot P(X=0)]" |> 
+        glue() |> 
+        TeX()
+    ) +
+    xlab("z") +
+    ylab("P(Z=z)") +
+    scale_x_continuous(
+      breaks = 0:xfinal,
+      labels = scales::label_number(accuracy = 1)
+    ) +
+    annotate(
+      "text",
+      x = -0.2,
+      y = c(p0, 0, 0.5 * p0, 1.5 * p0),
+      label = c(p0, 0, 0.5 * p0, 1.5 * p0) |> round(2) |> as.character(),
+      hjust = 1,       # Adjust horizontal alignment (0 for left-aligned)
+      size = 3
+    ) +
+    theme_classic()
+}
+
+plot.distribs(lambda = 0.5)
+plot.distribs(lambda = 1)
+plot.distribs(lambda = 2)
+plot.distribs(lambda = 3)
+```
+
+
 
 A second parametrization for the zero-modified Poisson distribution can be obtained setting $p=e^{-\lambda+\theta}$, so that, for $Z \sim ZModPoi(\theta, \lambda)$, we have
 $$
