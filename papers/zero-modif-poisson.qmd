@@ -18,7 +18,6 @@ execute:
 #| include: false
 
 library(tidyverse)  # my go-to package
-library(glue)
 library(actuar)     # dzmpois() 
 library(latex2exp)  # TeX()
 library(patchwork)
