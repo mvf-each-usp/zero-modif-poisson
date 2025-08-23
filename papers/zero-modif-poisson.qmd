@@ -184,13 +184,17 @@ $$
 \begin{align}
 \ell(\lambda|x) 
   & = \log(P(X=x)) 
-    = -\lambda + x \log(\lambda) \\
+  % = -\lambda + x \log(\lambda) \\
+    = x \log(\lambda) - \lambda \\
+%
 U(\lambda|x) 
   & = \ell'(\lambda|x) 
-    = -1 + \frac{x}{\lambda} \\
+    = \frac{x}{\lambda} - 1 \\
+%
 \mathcal{J}(\lambda|x) 
   & = - \ell''(\lambda|x) 
   = \frac{x}{\lambda^2} \\
+%
 \mathcal{I}_X(\lambda) 
   & = \mathbb{E}_X(\mathcal{J}(\lambda|X)) 
     % = \mathbb{E}\left(\frac{X}{\lambda^2}\right) 
@@ -209,13 +213,17 @@ $$
   % = \sum_{i=1}^n -\lambda + x_i \log(\lambda) 
   % = - n \lambda + \log(\lambda) \sum_{i=1}^n x_i
   % = - n \lambda + s \log(\lambda)
-    = - n \lambda + n\bar{x} \log(\lambda)\\
+  % = - n \lambda + n\bar{x} \log(\lambda) \\
+    = n \bar{x} \log(\lambda) - n \lambda \\
+%
 U(\lambda|\widetilde{x}) 
   & = \ell'(\lambda|\widetilde{x}) 
-    = -n + \frac{n\bar{x}}{\lambda} \\
+    = \frac{n\bar{x}}{\lambda} - n \\
+%
 \mathcal{J}(\lambda|\widetilde{x}) 
   & = - \ell''(\lambda|\widetilde{x}) 
     = \frac{n\bar{x}}{\lambda^2} \\
+%
 \mathcal{I}(\lambda) 
   & = n \cdot \mathcal{I}_X(\lambda) 
     = \frac{n}{\lambda}
@@ -227,7 +235,7 @@ Note that, in the worst case scenario $\widetilde{x}=\widetilde{0} \Rightarrow \
 $$
 \ell(\lambda|\widetilde{0}) = - n \lambda
 \qquad
-U(\lambda|\widetilde{0}) = -n
+U(\lambda|\widetilde{0}) = - n
 \qquad
 \mathcal{J}(\lambda|\widetilde{0}) = 0 
 \qquad
@@ -239,7 +247,7 @@ Otherwise, when $\bar{x}\ne0$, the ML estimator comes from
 $$
 \ell'(\hat\lambda|\widetilde{x}) = 0 
   \Rightarrow 
-    -n + \frac{n\bar{x}}{\hat\lambda} = 0
+    \frac{n\bar{x}}{\hat\lambda} - n = 0
   % \Rightarrow 
   %   \frac{n\bar{x}}{\hat\lambda} = n 
   \Rightarrow 
@@ -315,22 +323,57 @@ $$
 \begin{align}
 \ell(\lambda|y) 
   & = \log(P(Y=y)) 
-  & = \log\left(\frac{\lambda^y}{(e^\lambda-1)y!}\right)
-    = -\lambda + x \log(\lambda) \\
-%
-%
+  % = \log\left(\frac{\lambda^y}{(e^\lambda-1)y!}\right)
+  % = \log(\lambda^y)-\log(e^\lambda-1)-\log(y!)
+    = y\log(\lambda)-\log(e^\lambda-1) \\
 %
 U(\lambda|y) 
-  & = \ell'(\lambda|y) 
-    = -1 + \frac{x}{\lambda} \\
+  & = \ell'(\lambda|y) % \\
+  % & = \frac{y}{\lambda} - \frac{d}{d\lambda}\log(e^\lambda-1) \\
+  % & = \frac{y}{\lambda} - 
+  %   \frac{1}{e^\lambda-1}\frac{d}{d\lambda}(e^\lambda-1) \\
+  % & = \frac{y}{\lambda} - \frac{1}{e^\lambda-1}e^\lambda \\
+    = \frac{y}{\lambda} - \frac{1}{1-e^{-\lambda}} \\
+%
 \mathcal{J}(\lambda|y) 
-  & = - \ell''(\lambda|y) 
-  = \frac{x}{\lambda^2} \\
+  & = - \ell''(\lambda|y) % \\
+  % \\
+  % & \ell''(\lambda|y) \\
+  % & = \frac{d}{d\lambda} (\frac{y}{\lambda} - \frac{1}{1-e^{-\lambda}}) \\
+  % & = -\frac{y}{\lambda^2} - \frac{d}{d\lambda} \frac{1}{1-e^{-\lambda}} \\
+  % & = -\frac{y}{\lambda^2} - \frac{d}{d\lambda} (1-e^{-\lambda})^{-1} \\
+  % & = -\frac{y}{\lambda^2} - 
+  %     (-1) (1-e^{-\lambda})^{-2} \frac{d}{d\lambda} (1-e^{-\lambda}) \\
+  % & = -\frac{y}{\lambda^2} - 
+  %     (-1) (1-e^{-\lambda})^{-2} \frac{d}{d\lambda} -e^{-\lambda} \\
+  % & = -\frac{y}{\lambda^2} - 
+  %     (1-e^{-\lambda})^{-2} \frac{d}{d\lambda} e^{-\lambda} \\
+  % & = -\frac{y}{\lambda^2} - 
+  %     (1-e^{-\lambda})^{-2} e^{-\lambda} (-1)\\
+  % & = -\frac{y}{\lambda^2} + 
+  %     (1-e^{-\lambda})^{-2} e^{-\lambda} \\
+  % & = -\frac{y}{\lambda^2} + 
+  %     \frac{e^{-\lambda}}{(1-e^{-\lambda})^2} \\
+  % & = -\frac{y}{\lambda^2} + 
+  %     \frac{(e^{-\lambda/2})^2}{(1-e^{-\lambda})^2} \\
+  % & = -\frac{y}{\lambda^2} + 
+  %     \frac{1}{(e^{\lambda/2}-e^{-\lambda/2})^2} \\
+  % & = -\frac{y}{\lambda^2} + 
+  %     \frac{1}{(2\sinh(\lambda/2))^2} \\
+  %   \\
+  % & (e^{\lambda/2}-e^{-\lambda/2})^2 \\
+  % & = (e^{\lambda/2})^2 - 2 e^{\lambda/2} e^{-\lambda/2}+(e^{-\lambda/2})^2 \\
+  % & = e^{\lambda} - 2 e^{\lambda/2-\lambda/2} + e^{-\lambda} \\
+  % & = e^{\lambda} - 2 e^{0} + e^{-\lambda} \\
+  % & = e^{\lambda} - 2 + e^{-\lambda} \\
+  % & = e^{\lambda} + e^{-\lambda} - 2\\
+  %   \\
+    = \frac{y}{\lambda^2} - \frac{1}{e^{\lambda} + e^{-\lambda} - 2} \\
+%
 \mathcal{I}_X(\lambda) 
-  & = \mathbb{E}_Y(\mathcal{J}(\lambda|Y)) 
-    % = \mathbb{E}\left(\frac{X}{\lambda^2}\right) 
-    % = \frac{\lambda}{\lambda^2}
-    = \frac{1}{\lambda}
+  & = \mathbb{E}_Y(\mathcal{J}(\lambda|Y)) % \\
+  % & = \frac{\lambda}{\lambda^2} - \frac{1}{e^{\lambda} + e^{-\lambda} - 2} \\
+    = \frac{1}{\lambda} - \frac{1}{e^{\lambda} + e^{-\lambda} - 2}
 \end{align}
 $$
 unless a term constant with respect to $\lambda$.
