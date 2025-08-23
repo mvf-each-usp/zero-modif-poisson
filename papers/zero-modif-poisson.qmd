@@ -175,23 +175,319 @@ so that the parametrization used in each context will be defined by the use of t
 
 
 
-## Likelihood and ML estimation
+## The regular Poisson model
 
-For a single observation, we have
-$$
-\ell(p,\lambda) =
-\begin{cases}
-\log(p) 
-  & z=0 \\
-\log\left(\frac{(1-p)\lambda^y}{(e^\lambda-1)y!}\right)
-  = \log(1-p)+\log(\lambda^y)-\log(e^\lambda-1)-\log(y!))
-  & z=1,2,\ldots
-\end{cases}
-$$
-and, for an i.i.d. sample $Z_1,Z_2,\ldots,X_n$ of $ZModPoi(p, \lambda)$, we have, 
+### Log-likelihood and maximum likelihood estimation
+
+The log-likelihood function $\ell(\lambda|x)$, the score function $U(\lambda|x)$, observed information $\mathcal{J}(\lambda|x)$, and Fisher information $\mathcal{I}_X(\lambda)$ of a single observation $X \sim Poi(\lambda)$ are
 $$
 \begin{align}
-L(p,\lambda)
+\ell(\lambda|x) 
+  & = \log(P(X=x)) 
+    = -\lambda + x \log(\lambda) \\
+U(\lambda|x) 
+  & = \ell'(\lambda|x) 
+    = -1 + \frac{x}{\lambda} \\
+\mathcal{J}(\lambda|x) 
+  & = - \ell''(\lambda|x) 
+  = \frac{x}{\lambda^2} \\
+\mathcal{I}_X(\lambda) 
+  & = \mathbb{E}_X(\mathcal{J}(\lambda|X)) 
+    % = \mathbb{E}\left(\frac{X}{\lambda^2}\right) 
+    % = \frac{\lambda}{\lambda^2}
+    = \frac{1}{\lambda}
+\end{align}
+$$
+unless a term constant with respect to $\lambda$.
+
+
+For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the log-likelihood function $\ell(\lambda|\widetilde{x})$, the score function $U(\lambda|\widetilde{x})$, observed information $\mathcal{J}(\lambda|\widetilde{x})$, and Fisher information $\mathcal{I}(\lambda)$ are
+$$
+\begin{align}
+\ell(\lambda|\widetilde{x}) 
+  & = \sum_{i=1}^n \ell(\lambda|x_i)
+  % = \sum_{i=1}^n -\lambda + x_i \log(\lambda) 
+  % = - n \lambda + \log(\lambda) \sum_{i=1}^n x_i
+  % = - n \lambda + s \log(\lambda)
+    = - n \lambda + n\bar{x} \log(\lambda)\\
+U(\lambda|\widetilde{x}) 
+  & = \ell'(\lambda|\widetilde{x}) 
+    = -n + \frac{n\bar{x}}{\lambda} \\
+\mathcal{J}(\lambda|\widetilde{x}) 
+  & = - \ell''(\lambda|\widetilde{x}) 
+    = \frac{n\bar{x}}{\lambda^2} \\
+\mathcal{I}(\lambda) 
+  & = n \cdot \mathcal{I}_X(\lambda) 
+    = \frac{n}{\lambda}
+\end{align}
+$$
+by the additivity of the likelihood function of i.i.d. samples.
+
+Note that, in the worst case scenario $\widetilde{x}=\widetilde{0} \Rightarrow \bar{x}=0$, we have
+$$
+\ell(\lambda|\widetilde{0}) = - n \lambda
+\qquad
+U(\lambda|\widetilde{0}) = -n
+\qquad
+\mathcal{J}(\lambda|\widetilde{0}) = 0 
+\qquad
+\mathcal{I}(\lambda) = 0
+$$
+which does not give a valid estimator $\hat\lambda$, for $\ell(\lambda|\widetilde{0})$ is monotonically decreasing and would reach maximum in the limiting case $\lambda\to0$, outside the parametric space $(0,\infty)$.
+
+Otherwise, when $\bar{x}\ne0$, the ML estimator comes from
+$$
+\ell'(\hat\lambda|\widetilde{x}) = 0 
+  \Rightarrow 
+    -n + \frac{n\bar{x}}{\hat\lambda} = 0
+  % \Rightarrow 
+  %   \frac{n\bar{x}}{\hat\lambda} = n 
+  \Rightarrow 
+    \hat\lambda = \bar{x} 
+$$
+$$
+\ell''(\hat\lambda|\widetilde{x})
+  = -\frac{n\bar{x}}{\hat\lambda^2}
+  = -\frac{n\bar{x}}{\bar{x}^2}
+  % = -\frac{n\bar{x}}{\bar{x}^2}
+  = -\frac{n}{\bar{x}}
+  < 0
+$$
+
+So, given $\bar{x}\ne0$, 
+$$
+\hat\lambda_{ML} = \bar{x}
+$$
+
+
+### Moments and method of moments estimation
+
+It is straightforward to get $\hat\lambda_{MM}$.
+
+For one parameter, the first moment will be enough for estimation.
+
+Since 
+$$
+\mu_1 = \mathbb{E}(X^1) = \lambda,
+$$
+then 
+$$
+\frac{1}{n} \sum_{i=1}^n x_i^1 = \hat\lambda_1,
+$$
+so
+$$
+\hat\lambda_{MM} = \bar{x}.
+$$
+
+
+
+### Least square estimation
+
+Also straightforward.
+
+For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the loss function $SS(\ell)$ for the choice of a value $\ell$ for $\hat\lambda$ is
+$$
+SS(\ell) = \sum_{i=1}^n (x_i - \ell)^2
+$$
+whose derivative $SS'(\ell)$ is
+$$
+SS'(\ell) = \sum_{i=1}^n -2(x_i - \ell)
+$$
+which, when equaled to zero, $SS'(\ell^*) = 0$ gives
+$$
+\sum_{i=1}^n -2(x_i - \ell^*) = 0 
+  \Rightarrow
+    n\ell^* = \sum_{i=1}^n x_i
+$$
+therefore
+$$
+\hat\lambda_{LS} = \bar{x}.
+$$
+
+
+
+## The truncated Poisson model
+
+### Log-likelihood and maximum likelihood estimation
+
+The log-likelihood function $\ell(\lambda|y)$, the score function $U(\lambda|y)$, observed information $\mathcal{J}(\lambda|y)$, and Fisher information $\mathcal{I}_Y(\lambda)$ of a single observation $Y \sim TruncPoi(\lambda)$ are
+$$
+\begin{align}
+\ell(\lambda|y) 
+  & = \log(P(Y=y)) 
+  & = \log\left(\frac{\lambda^y}{(e^\lambda-1)y!}\right)
+    = -\lambda + x \log(\lambda) \\
+%
+%
+%
+U(\lambda|y) 
+  & = \ell'(\lambda|y) 
+    = -1 + \frac{x}{\lambda} \\
+\mathcal{J}(\lambda|y) 
+  & = - \ell''(\lambda|y) 
+  = \frac{x}{\lambda^2} \\
+\mathcal{I}_X(\lambda) 
+  & = \mathbb{E}_Y(\mathcal{J}(\lambda|Y)) 
+    % = \mathbb{E}\left(\frac{X}{\lambda^2}\right) 
+    % = \frac{\lambda}{\lambda^2}
+    = \frac{1}{\lambda}
+\end{align}
+$$
+unless a term constant with respect to $\lambda$.
+
+
+For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the log-likelihood function $\ell(\lambda|\widetilde{x})$, the score function $U(\lambda|\widetilde{x})$, observed information $\mathcal{J}(\lambda|\widetilde{x})$, and Fisher information $\mathcal{I}(\lambda)$ are
+$$
+\begin{align}
+\ell(\lambda|\widetilde{x}) 
+  & = \sum_{i=1}^n \ell(\lambda|x_i)
+  % = \sum_{i=1}^n -\lambda + x_i \log(\lambda) 
+  % = - n \lambda + \log(\lambda) \sum_{i=1}^n x_i
+  % = - n \lambda + s \log(\lambda)
+    = - n \lambda + n\bar{x} \log(\lambda)\\
+U(\lambda|\widetilde{x}) 
+  & = \ell'(\lambda|\widetilde{x}) 
+    = -n + \frac{n\bar{x}}{\lambda} \\
+\mathcal{J}(\lambda|\widetilde{x}) 
+  & = - \ell''(\lambda|\widetilde{x}) 
+    = \frac{n\bar{x}}{\lambda^2} \\
+\mathcal{I}(\lambda) 
+  & = n \cdot \mathcal{I}_X(\lambda) 
+    = \frac{n}{\lambda}
+\end{align}
+$$
+by the additivity of the likelihood function of i.i.d. samples.
+
+Note that, in the worst case scenario $\widetilde{x}=\widetilde{0} \Rightarrow \bar{x}=0$, we have
+$$
+\ell(\lambda|\widetilde{0}) = - n \lambda
+\qquad
+U(\lambda|\widetilde{0}) = -n
+\qquad
+\mathcal{J}(\lambda|\widetilde{0}) = 0 
+\qquad
+\mathcal{I}(\lambda) = 0
+$$
+which does not give a valid estimator $\hat\lambda$, for $\ell(\lambda|\widetilde{0})$ is monotonically decreasing and would reach maximum in the limiting case $\lambda\to0$, outside the parametric space $(0,\infty)$.
+
+Otherwise, when $\bar{x}\ne0$, the ML estimator comes from
+$$
+\ell'(\hat\lambda|\widetilde{x}) = 0 
+  \Rightarrow 
+    -n + \frac{n\bar{x}}{\hat\lambda} = 0
+  % \Rightarrow 
+  %   \frac{n\bar{x}}{\hat\lambda} = n 
+  \Rightarrow 
+    \hat\lambda = \bar{x} 
+$$
+$$
+\ell''(\hat\lambda|\widetilde{x})
+  = -\frac{n\bar{x}}{\hat\lambda^2}
+  = -\frac{n\bar{x}}{\bar{x}^2}
+  % = -\frac{n\bar{x}}{\bar{x}^2}
+  = -\frac{n}{\bar{x}}
+  < 0
+$$
+
+So, given $\bar{x}\ne0$, 
+$$
+\hat\lambda_{ML} = \bar{x}
+$$
+
+
+### Moments and method of moments estimation
+
+It is straightforward to get $\hat\lambda_{MM}$.
+
+For one parameter, the first moment will be enough for estimation.
+
+Since 
+$$
+\mu_1 = \mathbb{E}(X^1) = \lambda,
+$$
+then 
+$$
+\frac{1}{n} \sum_{i=1}^n x_i^1 = \hat\lambda_1,
+$$
+so
+$$
+\hat\lambda_{MM} = \bar{x}.
+$$
+
+
+
+### Least square estimation
+
+Also straightforward.
+
+For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the loss function $SS(\ell)$ for the choice of a value $\ell$ for $\hat\lambda$ is
+$$
+SS(\ell) = \sum_{i=1}^n (x_i - \ell)^2
+$$
+whose derivative $SS'(\ell)$ is
+$$
+SS'(\ell) = \sum_{i=1}^n -2(x_i - \ell)
+$$
+which, when equaled to zero, $SS'(\ell^*) = 0$ gives
+$$
+\sum_{i=1}^n -2(x_i - \ell^*) = 0 
+  \Rightarrow
+    n\ell^* = \sum_{i=1}^n x_i
+$$
+therefore
+$$
+\hat\lambda_{LS} = \bar{x}.
+$$
+
+
+
+
+
+
+
+## The zero-inflated Poisson model
+
+### Log-likelihood and maximum likelihood estimation
+
+### Least squares estimation
+
+### Moments and method of moments estimation
+
+
+
+
+## The general zero-modified Poisson model
+
+### Moments and method of moments estimation
+
+### Log-likelihood and maximum likelihood estimation
+
+The log-likelihood of a single observation $Z \sim ZModPoi(p, \lambda)$ is
+$$
+\begin{align}
+\ell(p,\lambda|0) 
+  & = \log(p) \\
+\ell(p,\lambda|z)
+  & = \log\left(\frac{(1-p)\lambda^z}{(e^\lambda-1)z!}\right)
+    = \log(1-p)+z\log(\lambda)-\log(e^\lambda-1)
+\end{align}
+$$
+for $z=1,2,\ldots$
+
+
+and for an i.i.d. sample $Z_1,Z_2,\ldots,X_n$ of $ZModPoi(p, \lambda)$, we have
+$$
+\begin{align}
+\ell(p,\lambda|z_1,\ldots,z_n)
+  & = \sum_{i=1}^n \ell(p,\lambda|z_i) \\
+  & = \sum_{i \in M}^n \ell(p,\lambda|z_i) +
+      \sum_{i \not\in M}^n \ell(p,\lambda|z_i) \\
+  & = m \log(p) +
+      \sum_{i \not\in M}^n \log(1-p)+z\log(\lambda)-\log(e^\lambda-1) \\
+  
+  
+  
+  
   & = P(Z_1=z_1,\ldots,Z_n=z_n) \\
   & = \prod_{i=1}^n P(Z=z_i) \\
   & = \prod_{i \in M} P(Z=z_i) \times
@@ -202,6 +498,6 @@ L(p,\lambda)
       \prod_{i \not\in M} P(Z=z_i) \\
 \end{align}
 $$
-where $M$ is the set $M=\{i=1,2,\ldots,n; z_i=0\}$ of positions of the observed zeroes and $m=#M$ is its size.
+where $M$ is the set $M=\{i=1,2,\ldots,n|z_i=0\}$ of positions of the observed zeroes and $m=#M$ is its size.
 
 
