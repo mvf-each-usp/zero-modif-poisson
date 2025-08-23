@@ -43,37 +43,55 @@ TO-DO: examples of phenomena with occurrences of over- and under-occurrences of 
 
 ## Definitions
 
-From the (regular) Poisson distribution $X \sim Poi(\lambda)$ with $\lambda>0$
+From the (regular) Poisson distribution $X \sim Poi(\lambda)$ with $\lambda\in(0,\infty)$ and $x=0,1,2,\ldots$
 $$
-P(X=x) = \frac{e^{-\lambda}\lambda^x}{x!}, \qquad x\in\{0,1,2,\ldots\},
+P(X=x) = \frac{e^{-\lambda}\lambda^x}{x!}
 $$
-we define:
+and $p_0=P(X=0)=e^{-\lambda}$, we define:
 
-- the *truncated Poisson distribution* $Y \sim TruncPoi(\lambda)$, with 
-  $\lambda>0$
+- the *truncated* Poisson distribution $Y \sim TruncPoi(\lambda)$, with 
+  $\lambda\in(0,\infty)$
   $$
   P(Y=y) 
     = P(X=y|X>0) 
     = \frac{P(X=y)}{1-P(X=0)}
-    = \frac{\frac{e^{-\lambda}\lambda^y}{y!}}{(1-e^{-\lambda})}
+    % = \frac{\frac{e^{-\lambda}\lambda^y}{y!}}{(1-e^{-\lambda})}
     = \frac{\lambda^y}{(e^\lambda-1)y!},
   $$
   for $y=1,2,\ldots$
-- the *zero-modified Poisson distribution* $Z \sim ZModPoi(p, \lambda)$, with 
-  $p\in(0,1)$ and $\lambda>0$
+- the *zero-inflated* Poisson distribution $Z \sim ZInflPoi(\pi, \lambda)$, 
+  with $\pi\in(0,1)$ and $\lambda\in(0,\infty)$
   $$
   P(Z=z) =
     \begin{cases}
-    p 
+    \pi + (1-\pi) \cdot P(X=0) 
+      = \pi + (1-\pi)e^{-\lambda}
       & z=0\\
-    (1-p) P(Y=z) 
-      = \frac{(1-p)\lambda^z}{(e^\lambda-1)z!},
+    (1-\pi) P(X=z) 
+      = \frac{(1-\pi)e^{-\lambda}\lambda^z}{z!},
       & z=1,2,\ldots
     \end{cases}
   $$
+  which can be thought of as a mixture model as 
+  $Z = I \times 0 + (1 - I) \times X$
+  where $I \sim Bern(\pi)$ independent of $X$.
+- the (general) *zero-modified* Poisson distribution
+  $W \sim ZModPoi(p, \lambda)$, with $p\in(0,1)$ and $\lambda>0$
+  $$
+  P(W=w) =
+    \begin{cases}
+    p & w=0\\
+    (1-p) \cdot P(Y=w) 
+      = \frac{(1-p)\lambda^w}{(e^\lambda-1)w!},
+      & w=1,2,\ldots
+    \end{cases}
+  $$
+  which can be thought of as a hurdle model as 
+  $W = J \times 0 + (1 - J) \times Y$
+  where $J \sim Bern(p)$ independent of $Y$.
 
 
-Note that the regular, the zero-inflated, the zero-deflated, and the truncated Poisson distributions can be obtained respectively when $p=P(X=0)=e^{-\lambda}$, $p>e^{-\lambda}$, $p<e^{-\lambda}$, and $p=0$ (which can be seen as a limit case of the previous).
+Note that the regular, the zero-inflated, the zero-deflated, and the truncated Poisson distributions can be obtained from the general model respectively when $p=p_0$, $p>p_0$, $p<p_0$, and $p\to0$.
 
 ```{r}
 #| label: graph-1st-param
@@ -118,15 +136,14 @@ expand_grid(
 ```
 
 
-
-A second parametrization for the zero-modified Poisson distribution can be obtained setting $p=e^{-\lambda+\theta}$, so that, for $Z \sim ZModPoi(\theta, \lambda)$, we have
+A second parametrization for the zero-modified Poisson distribution can be obtained by setting $p=e^{-\lambda+\theta}$, so that, for $Z \sim ZModPoi(\theta, \lambda)$, we have
 $$
-P(Z=z) = 
+P(W=w) = 
 \begin{cases}
 e^{-\lambda+\theta}, 
-  & z=0\\
-\frac{(1-e^{-\lambda+\theta})\lambda^y}{(e^{\lambda}-1)y!}
-  & z=1,2,\ldots
+  & w=0\\
+\frac{(1-e^{-\lambda+\theta})\lambda^w}{(e^{\lambda}-1)w!}
+  & w=1,2,\ldots
 \end{cases}
 $$
 in which case, regular, zero-inflated, and zero-deflated Poisson can be obtained when $\theta=0$, $\theta>0$, and $\theta<0$. However, a constraint must be set on $\theta$ so that $0<p<1$:
@@ -139,14 +156,15 @@ e^{-\lambda+\theta}<1
 $$
 This way, we can refer to $Z \sim ZModPoi(\theta,\lambda)$ for $\lambda>0$ and $\theta<\lambda$ as the model in its second parametrization.
 
+
 For algebraic ease, we may use a third parametrization setting $1-p=e^\gamma$, subject to $0<e^\gamma<1 \Leftrightarrow \gamma<0$, 
 $$
-P(Z=z) = 
+P(W=w) = 
 \begin{cases}
 1-e^{\gamma}, 
-  & z=0\\
-\frac{e^\gamma\lambda^y}{(e^{\lambda}-1)y!}
-  & z=1,2,\ldots
+  & y=0\\
+\frac{e^\gamma\lambda^w}{(e^{\lambda}-1)w!}
+  & w=1,2,\ldots
 \end{cases}
 $$
 so that the parametrization used in each context will be defined by the use of the three different parameters.
