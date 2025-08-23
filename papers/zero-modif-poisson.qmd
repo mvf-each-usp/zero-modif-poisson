@@ -31,6 +31,10 @@ library(patchwork)
 
 I did not invented this model, but I will give the proper credits later, when I write a proper introduction.
 
+### Literature review
+
+Soon...
+
 ### Examples of applications
 
 TO-DO: examples of phenomena with occurrences of over- and under-occurrences of zero observations.
