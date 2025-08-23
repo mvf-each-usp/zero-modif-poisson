@@ -95,7 +95,7 @@ Note that the regular, the zero-inflated, the zero-deflated, and the truncated P
 
 ```{r}
 #| label: graph-1st-param
-#| fig-cap: "Visualizing difference among distrubions"
+#| fig-cap: "Visualizing difference among distributions"
 
 xfinal <- 6
 expand_grid(
@@ -125,10 +125,14 @@ expand_grid(
     breaks = 0:xfinal,
     labels = scales::label_number(accuracy = 1)
   ) +
+  ylim(0:1) +
   facet_wrap(~ lambda, labeller = "label_both") +
   ggtitle( 
-    "Comparing regular, truncated, zero-deflated, " %$%
-      "and zero-inflated Poisson distributions"
+    "Comparing regular, truncated, zero-deflated, and zero-inflated models" ,
+    subtitle = 
+      "Regular ($p=p_0$), truncated ($p=0$), " %$%
+      "zero-deflated ($p<p_0$), and zero-inflated ($p>p_0$)" |> 
+      TeX()
   ) +
   xlab("z") +
   ylab("P(Z=z)") +
