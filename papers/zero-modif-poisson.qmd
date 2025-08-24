@@ -438,23 +438,25 @@ ggplot() +
   ) +
   theme_classic()
 ```
+
+As can be seen, there is a worst case scenario for the zero-truncated Poisson: when $\bar{y}=1$.
+
+When $\bar{y}=1$, the equation $ax=1-e^{-x}$ becomes $x=1-e^{-x}$, whose only solutions would be $x=0$ (since $x>1-e^{-x}$ for $x\ne0$), which, back in the estimation problem, would mean the solution for $\hat\lambda = 1-e^{-\hat\lambda}$ would lie outside the parametric space.
+
+Granted $\bar{y}>1$, from the behavior of $1-e^{-x}$ and $ax$ with $a\in(0,1)$, we can assure the existence and unicity of the maximum of $\ell(\lambda|\widetilde{y})$, so that the maximum likelihood estimator $\hat\lambda_{LM}$ can be found by numerically solving 
 $$
-\ell'(\hat\lambda|\widetilde{x}) = 0 
-  \Rightarrow 
-    -n + \frac{n\bar{x}}{\hat\lambda} = 0
-  % \Rightarrow 
-  %   \frac{n\bar{x}}{\hat\lambda} = n 
-  \Rightarrow 
-    \hat\lambda = \bar{x} 
+\frac{\hat\lambda}{\bar{y}} = 1-e^{-\hat\lambda}
 $$
+
+For an analytic solution, we address the reader to the @sec-analytic-solution, where we establish that
 $$
-\ell''(\hat\lambda|\widetilde{x})
-  = -\frac{n\bar{x}}{\hat\lambda^2}
-  = -\frac{n\bar{x}}{\bar{x}^2}
-  % = -\frac{n\bar{x}}{\bar{x}^2}
-  = -\frac{n}{\bar{x}}
-  < 0
+\hat\lambda_{ML} = \bar{y} + W_0(-\bar{y}e^{-\bar{y}})
 $$
+where $W_0$ is the main branch of Lambert function $W_k$, which plays the role of a bias correction term, since all zero observations (that would be present were $Y$ not zero-truncated) were excluded before taking the average $\bar{y}$.
+
+If available, the use of $W_0$ frees us from using numeric solution.
+
+
 #### Useful developments
 
 ##### Derivatives used to study the log-likelihood of $Y$
