@@ -215,7 +215,7 @@ $$
 unless a term constant with respect to $\lambda$.
 
 
-For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the log-likelihood function $\ell(\lambda|\widetilde{x})$, the score function $U(\lambda|\widetilde{x})$, observed information $\mathcal{J}(\lambda|\widetilde{x})$, and Fisher information $\mathcal{I}(\lambda)$ are
+For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the log-likelihood function $\ell(\lambda|\widetilde{x})$, the score function $U(\lambda|\widetilde{x})$, observed information $\mathcal{J}(\lambda|\widetilde{x})$, and Fisher information $\mathcal{I}_{\widetilde{X}}(\lambda)$ are
 $$
 \begin{align}
 \ell(\lambda|\widetilde{x}) 
@@ -240,7 +240,7 @@ U(\lambda|\widetilde{x})
   % &  = \frac{n\bar{x}}{\lambda^2} \\
   = \frac{n\bar{x}}{\lambda^2} \\
 %
-\mathcal{I}(\lambda) 
+\mathcal{I}_{\widetilde{X}}(\lambda) 
   & = n \cdot \mathcal{I}_X(\lambda) 
   % & = n \cdot \mathcal{I}_X(\lambda)  \\
   % & = \frac{n}{\lambda} \\
@@ -257,7 +257,7 @@ U(\lambda|\widetilde{0}) = - n
 \qquad
 \mathcal{J}(\lambda|\widetilde{0}) = 0 
 \qquad
-\mathcal{I}(\lambda) = 0
+\mathcal{I}_{\widetilde{X}}(\lambda) = 0
 $$
 which does not give a valid estimator $\hat\lambda$, for $\ell(\lambda|\widetilde{0})$ is monotonically decreasing and would reach maximum in the limiting case $\lambda\to0$, outside the parametric space $(0,\infty)$.
 
@@ -376,8 +376,7 @@ U(\lambda|y)
 $$
 unless a term constant with respect to $\lambda$.
 
-
-For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the log-likelihood function $\ell(\lambda|\widetilde{x})$, the score function $U(\lambda|\widetilde{x})$, observed information $\mathcal{J}(\lambda|\widetilde{x})$, and Fisher information $\mathcal{I}(\lambda)$ are
+For an i.i.d. sample $\widetilde{Y}=(Y_1,\ldots,Y_n)$, the log-likelihood function $\ell(\lambda|\widetilde{y})$, the score function $U(\lambda|\widetilde{y})$, observed information $\mathcal{J}(\lambda|\widetilde{y})$, and Fisher information $\mathcal{I}_{\widetilde{Y}}(\lambda)$ are
 $$
 \begin{align}
 \ell(\lambda|\widetilde{x}) 
