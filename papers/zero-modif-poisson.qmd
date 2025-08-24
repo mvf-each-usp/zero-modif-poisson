@@ -95,7 +95,7 @@ and $p_0=P(X=0)=e^{-\lambda}$, we define:
 Note that the regular, the zero-inflated, the zero-deflated, and the zero-truncated Poisson distributions can be obtained from the general model respectively when $p=p_0$, $p>p_0$, $p<p_0$, and $p\to0$.
 
 ```{r}
-#| label: graph-1st-param
+#| label: fig-1st-parametrization
 #| fig-cap: "Visualizing difference among distributions"
 
 xfinal <- 6
