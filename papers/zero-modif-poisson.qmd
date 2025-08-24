@@ -185,22 +185,31 @@ $$
 \begin{align}
 \ell(\lambda|x) 
   & = \log(P(X=x)) 
-  % = -\lambda + x \log(\lambda) \\
-    = x \log(\lambda) - \lambda \\
+  % & = \log(P(X=x)) \\
+  % & = -\lambda + x \log(\lambda) \\
+  % & = x \log(\lambda) - \lambda \\
+  = x \log(\lambda) - \lambda \\
 %
 U(\lambda|x) 
-  & = \ell'(\lambda|x) 
-    = \frac{x}{\lambda} - 1 \\
+  & = \ell'(\lambda|x)
+  % & = \ell'(\lambda|x) \\
+  % & = \frac{x}{\lambda} - 1 \\
+  = \frac{x}{\lambda} - 1 \\
 %
 \mathcal{J}(\lambda|x) 
-  & = - \ell''(\lambda|x) 
+  & = - U'(\lambda|x) 
+  % & = - U'(\lambda|x) \\
+  % & = - \ell''(\lambda|x) \\
+  % & = \frac{x}{\lambda^2} \\
   = \frac{x}{\lambda^2} \\
 %
 \mathcal{I}_X(\lambda) 
   & = \mathbb{E}_X(\mathcal{J}(\lambda|X)) 
-    % = \mathbb{E}\left(\frac{X}{\lambda^2}\right) 
-    % = \frac{\lambda}{\lambda^2}
-    = \frac{1}{\lambda}
+  % & = \mathbb{E}_X(\mathcal{J}(\lambda|X)) \\
+  % & = \mathbb{E}\left(\frac{X}{\lambda^2}\right) \\
+  % & = \frac{\lambda}{\lambda^2} \\
+  % & = \frac{1}{\lambda}
+  = \frac{1}{\lambda}
 \end{align}
 $$
 unless a term constant with respect to $\lambda$.
@@ -211,22 +220,30 @@ $$
 \begin{align}
 \ell(\lambda|\widetilde{x}) 
   & = \sum_{i=1}^n \ell(\lambda|x_i)
-  % = \sum_{i=1}^n -\lambda + x_i \log(\lambda) 
-  % = - n \lambda + \log(\lambda) \sum_{i=1}^n x_i
-  % = - n \lambda + s \log(\lambda)
-  % = - n \lambda + n\bar{x} \log(\lambda) \\
-    = n \bar{x} \log(\lambda) - n \lambda \\
+  % & = \sum_{i=1}^n \ell(\lambda|x_i) \\
+  % & = \sum_{i=1}^n -\lambda + x_i \log(\lambda) 
+  % & = - n \lambda + \log(\lambda) \sum_{i=1}^n x_i
+  % & = - n \lambda + s \log(\lambda)
+  % & = - n \lambda + n\bar{x} \log(\lambda) \\
+  % & = n \bar{x} \log(\lambda) - n \lambda \\
+  = n \bar{x} \log(\lambda) - n \lambda \\
 %
 U(\lambda|\widetilde{x}) 
   & = \ell'(\lambda|\widetilde{x}) 
+  % & = \ell'(\lambda|\widetilde{x}) \\
+  % & = \frac{n\bar{x}}{\lambda} - n \\
     = \frac{n\bar{x}}{\lambda} - n \\
 %
 \mathcal{J}(\lambda|\widetilde{x}) 
-  & = - \ell''(\lambda|\widetilde{x}) 
-    = \frac{n\bar{x}}{\lambda^2} \\
+  & = - U'(\lambda|\widetilde{x}) 
+  % & = - U'(\lambda|\widetilde{x}) \\
+  % &  = \frac{n\bar{x}}{\lambda^2} \\
+  = \frac{n\bar{x}}{\lambda^2} \\
 %
 \mathcal{I}(\lambda) 
   & = n \cdot \mathcal{I}_X(\lambda) 
+  % & = n \cdot \mathcal{I}_X(\lambda)  \\
+  % & = \frac{n}{\lambda} \\
     = \frac{n}{\lambda}
 \end{align}
 $$
@@ -324,57 +341,37 @@ $$
 \begin{align}
 \ell(\lambda|y) 
   & = \log(P(Y=y)) 
-  % = \log\left(\frac{\lambda^y}{(e^\lambda-1)y!}\right)
-  % = \log(\lambda^y)-\log(e^\lambda-1)-\log(y!)
-    = y\log(\lambda)-\log(e^\lambda-1) \\
+  % & = \log(P(Y=y)) \\
+  % & = \log\left(\frac{\lambda^y}{(e^\lambda - 1) y!}\right) \\
+  % & = \log(\lambda^y) - \log(e^\lambda - 1) - \log(y!) \\
+  % & = y\log(\lambda) - \log(e^\lambda - 1) \\
+  = y\log(\lambda) - \log(e^\lambda-1) \\
 %
 U(\lambda|y) 
-  & = \ell'(\lambda|y) % \\
+  & = \ell'(\lambda|y)
+  % & = \ell'(\lambda|y) \\
   % & = \frac{y}{\lambda} - \frac{d}{d\lambda}\log(e^\lambda-1) \\
-  % & = \frac{y}{\lambda} - 
-  %   \frac{1}{e^\lambda-1}\frac{d}{d\lambda}(e^\lambda-1) \\
+  % & = \frac{y}{\lambda} - \frac{1}{e^\lambda-1}\frac{d}{d\lambda}(e^\lambda-1) \\
   % & = \frac{y}{\lambda} - \frac{1}{e^\lambda-1}e^\lambda \\
-    = \frac{y}{\lambda} - \frac{1}{1-e^{-\lambda}} \\
+  % & = \frac{y}{\lambda} - \frac{1}{1-e^{-\lambda}} \\
+  = \frac{y}{\lambda} - \frac{1}{1-e^{-\lambda}} \\
 %
 \mathcal{J}(\lambda|y) 
-  & = - \ell''(\lambda|y) % \\
-  % \\
-  % & \ell''(\lambda|y) \\
-  % & = \frac{d}{d\lambda} (\frac{y}{\lambda} - \frac{1}{1-e^{-\lambda}}) \\
-  % & = -\frac{y}{\lambda^2} - \frac{d}{d\lambda} \frac{1}{1-e^{-\lambda}} \\
-  % & = -\frac{y}{\lambda^2} - \frac{d}{d\lambda} (1-e^{-\lambda})^{-1} \\
-  % & = -\frac{y}{\lambda^2} - 
-  %     (-1) (1-e^{-\lambda})^{-2} \frac{d}{d\lambda} (1-e^{-\lambda}) \\
-  % & = -\frac{y}{\lambda^2} - 
-  %     (-1) (1-e^{-\lambda})^{-2} \frac{d}{d\lambda} -e^{-\lambda} \\
-  % & = -\frac{y}{\lambda^2} - 
-  %     (1-e^{-\lambda})^{-2} \frac{d}{d\lambda} e^{-\lambda} \\
-  % & = -\frac{y}{\lambda^2} - 
-  %     (1-e^{-\lambda})^{-2} e^{-\lambda} (-1)\\
-  % & = -\frac{y}{\lambda^2} + 
-  %     (1-e^{-\lambda})^{-2} e^{-\lambda} \\
-  % & = -\frac{y}{\lambda^2} + 
-  %     \frac{e^{-\lambda}}{(1-e^{-\lambda})^2} \\
-  % & = -\frac{y}{\lambda^2} + 
-  %     \frac{(e^{-\lambda/2})^2}{(1-e^{-\lambda})^2} \\
-  % & = -\frac{y}{\lambda^2} + 
-  %     \frac{1}{(e^{\lambda/2}-e^{-\lambda/2})^2} \\
-  % & = -\frac{y}{\lambda^2} + 
-  %     \frac{1}{(2\sinh(\lambda/2))^2} \\
-  %   \\
-  % & (e^{\lambda/2}-e^{-\lambda/2})^2 \\
-  % & = (e^{\lambda/2})^2 - 2 e^{\lambda/2} e^{-\lambda/2}+(e^{-\lambda/2})^2 \\
-  % & = e^{\lambda} - 2 e^{\lambda/2-\lambda/2} + e^{-\lambda} \\
-  % & = e^{\lambda} - 2 e^{0} + e^{-\lambda} \\
-  % & = e^{\lambda} - 2 + e^{-\lambda} \\
-  % & = e^{\lambda} + e^{-\lambda} - 2\\
-  %   \\
-    = \frac{y}{\lambda^2} - \frac{1}{e^{\lambda} + e^{-\lambda} - 2} \\
+  & = - U'(\lambda|y) 
+  % & = - U'(\lambda|y) \\
+  % & = \frac{d}{d\lambda} \left(\frac{y}{\lambda} - \frac{1}{1-e^{-\lambda}}\right) \\
+  % & = \frac{d}{d\lambda}\frac{y}{\lambda} - \frac{d}{d\lambda}\frac{1}{1-e^{-\lambda}} \\
+  % & = -\frac{y}{\lambda^2} + \frac{4}{\sinh(\lambda/2)^2} \\
+  = -\frac{y}{\lambda^2} + \frac{4}{\sinh(\lambda/2)^2} \\
 %
 \mathcal{I}_X(\lambda) 
-  & = \mathbb{E}_Y(\mathcal{J}(\lambda|Y)) % \\
-  % & = \frac{\lambda}{\lambda^2} - \frac{1}{e^{\lambda} + e^{-\lambda} - 2} \\
-    = \frac{1}{\lambda} - \frac{1}{e^{\lambda} + e^{-\lambda} - 2}
+  & = \mathbb{E}_Y(\mathcal{J}(\lambda|Y))
+  % & = \mathbb{E}_Y(\mathcal{J}(\lambda|Y)) \\
+  % & = \mathbb{E}_Y\left(-\frac{y}{\lambda^2} + \frac{4}{\sinh(\lambda/2)^2}\right) \\
+  % & = -\frac{\mathbb{E}_Y(y)}{\lambda^2} + \frac{4}{\sinh(\lambda/2)^2} \\
+  % & = -\frac{\lambda}{\lambda^2} + \frac{4}{\sinh(\lambda/2)^2} \\
+  % & = -\frac{1}{\lambda} + \frac{4}{\sinh(\lambda/2)^2} \\
+  = -\frac{1}{\lambda} + \frac{4}{\sinh(\lambda/2)^2} \\
 \end{align}
 $$
 unless a term constant with respect to $\lambda$.
