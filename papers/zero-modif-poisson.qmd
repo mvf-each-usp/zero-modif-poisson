@@ -415,6 +415,21 @@ $$
 which does not give a valid estimator $\hat\lambda$, for $\ell(\lambda|\widetilde{0})$ is monotonically decreasing and would reach maximum in the limiting case $\lambda\to0$, outside the parametric space $(0,\infty)$.
 
 Otherwise, when $\bar{x}\ne0$, the ML estimator comes from
+```{r}
+#| label: fig-trunc-poi
+
+ggplot() +
+  geom_function(fun = \(x) 1 - exp(-x), color = "black") +
+  geom_function(fun = \(x) x / 1.3, color = "green") +
+  geom_function(fun = \(x) x , color = "red") +
+  xlim(0,1) +
+  coord_fixed() +
+  ggtitle(
+    TeX("Behavior of $1-e^{-x}$ against $ax$"),
+    subtitle = TeX("for $a<1$ (green) and $a=1$ (red)")
+  ) +
+  theme_classic()
+```
 $$
 \ell'(\hat\lambda|\widetilde{x}) = 0 
   \Rightarrow 
@@ -438,6 +453,49 @@ $$
 \hat\lambda_{ML} = \bar{x}
 $$
 
+```{r}
+#| label: fig-functions-e^x-xe^x
+#| fig-cap: "Function $e^x$ and $xe^x$"
+
+ggplot() +
+  geom_function(fun = exp, color = "black") +
+  geom_function(fun = \(x) x*exp(x), color = "blue") +
+  ggtitle(
+    TeX("Comparing $e^x$ and $xe^x$"),
+    subtitle = TeX("$e^x$ (black) and $xe^x$ (blue)")
+  ) +
+  xlim(-2,2) +
+  theme_classic()
+```
+
+
+```{r}
+#| label: fig-functions-log-W
+#| fig-cap: "Function $\\log(x)$ and $W_0(x)$"
+#| warning: false
+
+ggplot() +
+  geom_function(fun = log, color = "black") +
+  geom_function(fun = lambertW0, color = "blue") +
+  xlim(-1,5) +
+  ggtitle(
+    TeX("Comparing $\\log(x)$ and $W_0(x)$"),
+    subtitle = TeX("$\\log(x)$ (black) and $W_0(x)")
+  ) +
+  theme_classic()
+```
+
+```{r}
+#| label: fig-functions-W-negat
+#| fig-cap: "Functions $W_0(x)$ for $x> -1/e$"
+#| warning: false
+
+ggplot() +
+  geom_function(fun = lambertW0) +
+  xlim(-exp(-1),1) +
+  ggtitle(TeX("Function $W_0(x)$ for $x> -1/e$")) +
+  theme_classic()
+```
 
 ### Moments and method of moments estimation
 
