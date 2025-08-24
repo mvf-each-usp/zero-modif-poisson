@@ -50,7 +50,7 @@ P(X=x) = \frac{e^{-\lambda}\lambda^x}{x!}
 $$
 and $p_0=P(X=0)=e^{-\lambda}$, we define:
 
-- the *truncated* Poisson distribution $Y \sim TruncPoi(\lambda)$, with 
+- the *zero-truncated* Poisson distribution $Y \sim ZTruncPoi(\lambda)$, with 
   $\lambda\in(0,\infty)$
   $$
   P(Y=y) 
@@ -92,7 +92,7 @@ and $p_0=P(X=0)=e^{-\lambda}$, we define:
   where $J \sim Bern(p)$ independent of $Y$.
 
 
-Note that the regular, the zero-inflated, the zero-deflated, and the truncated Poisson distributions can be obtained from the general model respectively when $p=p_0$, $p>p_0$, $p<p_0$, and $p\to0$.
+Note that the regular, the zero-inflated, the zero-deflated, and the zero-truncated Poisson distributions can be obtained from the general model respectively when $p=p_0$, $p>p_0$, $p<p_0$, and $p\to0$.
 
 ```{r}
 #| label: graph-1st-param
@@ -106,7 +106,7 @@ expand_grid(
   mutate(
     RegPoi =  
       dzmpois(x, lambda, dpois(0, lambda)),
-    TruncPoi =
+    ZTruncPoi =
       dzmpois(x, lambda, 0),
     ZDeflPoi = 
       dzmpois(x, lambda, 0.5 * dpois(0, lambda)),
@@ -129,9 +129,9 @@ expand_grid(
   ylim(0:1) +
   facet_wrap(~ lambda, labeller = "label_both") +
   ggtitle( 
-    "Comparing regular, truncated, zero-deflated, and zero-inflated models" ,
+    "Comparing regular, zero-truncated, zero-deflated, and zero-inflated models" ,
     subtitle = 
-      "Regular ($p=p_0$), truncated ($p=0$), " %$%
+      "Regular ($p=p_0$), zero-truncated ($p=0$), " %$%
       "zero-deflated ($p<p_0$), and zero-inflated ($p>p_0$)" |> 
       TeX()
   ) +
@@ -315,11 +315,11 @@ $$
 
 
 
-## The truncated Poisson model
+## The zero-truncated Poisson model
 
 ### Log-likelihood and maximum likelihood estimation
 
-The log-likelihood function $\ell(\lambda|y)$, the score function $U(\lambda|y)$, observed information $\mathcal{J}(\lambda|y)$, and Fisher information $\mathcal{I}_Y(\lambda)$ of a single observation $Y \sim TruncPoi(\lambda)$ are
+The log-likelihood function $\ell(\lambda|y)$, the score function $U(\lambda|y)$, observed information $\mathcal{J}(\lambda|y)$, and Fisher information $\mathcal{I}_Y(\lambda)$ of a single observation $Y \sim ZTruncPoi(\lambda)$ are
 $$
 \begin{align}
 \ell(\lambda|y) 
