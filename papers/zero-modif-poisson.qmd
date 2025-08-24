@@ -485,6 +485,32 @@ $$
 \end{align}
 $$
 
+##### The Lambert function $W_k(x)$
+
+Otherwise than numerically, $\hat\lambda$ can be found using the Lambert function $W_0$.
+
+The general multibranch $W_k(z)$ is meant to revert $y=xe^x$ on the complex domain, so that every element $z$ of the set $S(y)=\bigcup_{k\in\mathbb{Z}}\{W_k(y)\}$ has the property $ze^z=y$ for every $y\in\mathbb{C}$.
+
+Constrained to the real domain, we can say about the function $y=xe^x$ that:
+
+- its first derivative is $y'=(1+x)e^x$
+- its second derivative is $y''=(2+x)e^x$
+- since $e^x>0$ for $x\in\mathbb{R}$, then 
+    - $y \lesseqgtr 0$ implies $x \lesseqgtr 0$, so
+        - $xe^x$ is negative for $x<0$,
+        - $xe^x$ is zero at $x=0$, and
+        - $xe^x$ is positive for $x>0$;
+    - $y' \lesseqgtr -1$ implies $x \lesseqgtr -1$, so
+        - $xe^x$ is monotonically decreasing for $x< -1$,
+        - $xe^x$ reaches minimum $-1/e\approx$`r -exp(-1)` at $x=-1$, and
+        - $xe^x$ is monotonically increasing for $x> -1$;
+    - $y'' \lesseqgtr -2$ implies $x \lesseqgtr -2$, so
+        - $xe^x$ is convex for $x< -2$,
+        - $xe^x$ is an inflexion point at $x=0$, and
+        - $xe^x$ is concave for $x> -2$.
+
+The branch $W_0$ of the multibranch function $W_k$ restricted to the real domain play the role of the inverse of the function $y=xe^x$ over $x\in(-1,\infty)$, which renders $y\in(-1/e,\infty)$.
+
 ```{r}
 #| label: fig-functions-e^x-xe^x
 #| fig-cap: "Function $e^x$ and $xe^x$"
