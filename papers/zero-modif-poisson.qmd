@@ -555,6 +555,48 @@ ggplot() +
   theme_classic()
 ```
 
+
+
+
+##### Analytical solution to $ax=1-e^{-x}$ {#sec-analytic-solution}
+
+Back to the estimation problem, the Lambert function $W_0(x)$ presented in the previous section will be useful after some transformation in original estimation equation.
+
+Consider the estimation equation
+$$\frac{\hat\lambda}{\bar{y}} = 1-e^{-\hat\lambda}$$
+in the form
+$$\frac{x}{b} = 1-e^{-x}$$
+
+Some assembly is required
+$$
+\frac{x}{b} = 1 - e^{-x} \Leftrightarrow
+e^{-x} = 1 - \frac{x}{b} \Leftrightarrow
+1 = \left(1 - \frac{x}{b}\right) e^x,
+$$
+now changing variable $x$ for $u=1-x/b$, which gives $x=b(1-u)$ and
+$$
+1 = \left(1 - \frac{x}{b}\right) e^x = ue^{b(1-u)}=ue^be^{-bu}
+$$
+$$
+e^{-b}=ue^{-bu} \Leftrightarrow -be^{-b}=(-bu)e^{-bu}
+$$
+
+Since $\bar{y}>1$, we can establish $-1/e < -\bar{y}e^{-\bar{y}} < 0$, so we will deal with $-1/e < -be^{-b} < 0$ and, therefore, we will use $W_0(x)$ to develop further the equation:
+$$
+W_0(-be^{-b})=W_0((-bu)e^{-bu})=-bu=-b\cdot\left(1-\frac{x}{b}\right)=-b+x
+$$
+$$
+x = b + W_0(-be^{-b})
+$$
+which, back to the estimation problem, gives
+$$
+\hat\lambda = \bar{y} + W_0(-\bar{y}e^{-\bar{y}}).
+$$
+
+Since $\bar{y}>1$, we have $-\bar{y}e^{-\bar{y}}<0$, which gives $W_0(-\bar{y}e^{-\bar{y}})<0$, so that $\laht\lambda$ is $\bar{y}$ minus a bias correction term that takes into account the fact that all zero observations were excluded before taking the average $\bar{y}$.
+
+
+
 ### Moments and method of moments estimation
 
 It is straightforward to get $\hat\lambda_{MM}$.
