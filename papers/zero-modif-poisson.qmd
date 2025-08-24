@@ -455,10 +455,34 @@ $$
   = -\frac{n}{\bar{x}}
   < 0
 $$
+#### Useful developments
 
-So, given $\bar{x}\ne0$, 
+##### Derivatives used to study the log-likelihood of $Y$
+
 $$
-\hat\lambda_{ML} = \bar{x}
+\begin{align}
+\frac{d}{d\lambda}\log(e^\lambda-1) 
+  & = \frac{1}{e^\lambda-1}\frac{d}{d\lambda}(e^\lambda-1) 
+    = \frac{1}{e^\lambda-1}e^\lambda 
+    = \frac{1}{1-e^{-\lambda}}\\
+\frac{d}{d\lambda} \frac{1}{1-e^{-\lambda}}
+  & =  \frac{d}{d\lambda} (1-e^{-\lambda})^{-1}   
+    =  (-1)(1-e^{-\lambda})^{-2} \frac{d}{d\lambda} (1-e^{-\lambda}) \\
+  & =  -\frac{1}{(1-e^{-\lambda})^2} \frac{d}{d\lambda}(-e^{-\lambda})   
+    =  \frac{1}{(1-e^{-\lambda})^2} \frac{d}{d\lambda} e^{-\lambda} \\
+  & =  \frac{1}{(1-e^{-\lambda})^2} e^{-\lambda}\frac{d}{d\lambda} (-\lambda)   
+    =  \frac{e^{-\lambda}}{(1-e^{-\lambda})^2} (-1) \\
+  & =  -\frac{e^{-\lambda}}{(1-e^{-\lambda})^2}    
+    =  -\frac{(e^{-\lambda/2})^2}{(1-e^{-\lambda})^2}    
+    =  -\left(\frac{e^{-\lambda/2}}{1-e^{-\lambda}}\right)^2 \\
+  & = -\left(\frac{e^{-\lambda/2}}{1-e^{-\lambda}}\right)^2   
+    =  -\left(\frac{e^{-\lambda/2}e^{\lambda/2}}{(1-e^{-\lambda})e^{\lambda/2}}\right)^2  \\
+  & =  -\left(\frac{1}{e^{\lambda/2}-e^{-\lambda+\lambda/2}}\right)^2   
+    =  -\left(\frac{1}{e^{\lambda/2}-e^{-\lambda/2}}\right)^2  \\
+  & =  -\frac{1}{(e^{\lambda/2}-e^{-\lambda/2})^2}    
+    =  -\frac{1}{(2\sinh(\lambda/2))^2}  \\
+  & =  -\frac{4}{\sinh(\lambda/2)^2}  \\
+\end{align}
 $$
 
 ```{r}
