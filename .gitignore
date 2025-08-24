@@ -77,3 +77,6 @@ rsconnect/
 
 # Temporary directories for renderizing HTML
 *_files/
+
+# Directory with refferences consulted
+refs/
