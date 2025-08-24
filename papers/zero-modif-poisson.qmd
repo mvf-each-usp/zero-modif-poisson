@@ -21,6 +21,7 @@ library(tidyverse)  # my go-to package
 library(actuar)     # dzmpois() 
 library(latex2exp)  # TeX()
 library(patchwork)
+library(lamW)
 
 `%$%` <- paste0  # concatenação de string
 ```
