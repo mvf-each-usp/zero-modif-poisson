@@ -379,38 +379,50 @@ unless a term constant with respect to $\lambda$.
 For an i.i.d. sample $\widetilde{Y}=(Y_1,\ldots,Y_n)$, the log-likelihood function $\ell(\lambda|\widetilde{y})$, the score function $U(\lambda|\widetilde{y})$, observed information $\mathcal{J}(\lambda|\widetilde{y})$, and Fisher information $\mathcal{I}_{\widetilde{Y}}(\lambda)$ are
 $$
 \begin{align}
-\ell(\lambda|\widetilde{x}) 
-  & = \sum_{i=1}^n \ell(\lambda|x_i)
-  % = \sum_{i=1}^n -\lambda + x_i \log(\lambda) 
-  % = - n \lambda + \log(\lambda) \sum_{i=1}^n x_i
-  % = - n \lambda + s \log(\lambda)
-    = - n \lambda + n\bar{x} \log(\lambda)\\
-U(\lambda|\widetilde{x}) 
-  & = \ell'(\lambda|\widetilde{x}) 
-    = -n + \frac{n\bar{x}}{\lambda} \\
-\mathcal{J}(\lambda|\widetilde{x}) 
-  & = - \ell''(\lambda|\widetilde{x}) 
-    = \frac{n\bar{x}}{\lambda^2} \\
-\mathcal{I}(\lambda) 
-  & = n \cdot \mathcal{I}_X(\lambda) 
-    = \frac{n}{\lambda}
+\ell(\lambda|\widetilde{y}) 
+  & = \sum_{i=1}^n \ell(\lambda|y_i) 
+  % & = \sum_{i=1}^n \ell(\lambda|y_i) \\
+  % & = \sum_{i=1}^n \left(y_i\log(\lambda) - \log(e^\lambda-1)\right) \\
+  % & = \log(\lambda) \sum_{i=1}^n y_i - n \log(e^\lambda-1) \\
+  % & = n \bar{y} \log(\lambda) - n \log(e^\lambda-1) \\
+  = n \bar{y} \log(\lambda) - n \log(e^\lambda-1) \\
+%
+U(\lambda|\widetilde{y}) 
+  & = \sum_{i=1}^n U(\lambda|y_i)
+  % & = \sum_{i=1}^n U(\lambda|y_i) \\
+  % & = \sum_{i=1}^n \left(\frac{y_i}{\lambda} - \frac{1}{1-e^{-\lambda}}\right) \\
+  % & = \frac{\sum_{i=1}^n y_i}{\lambda} - \frac{n}{1-e^{-\lambda}} \\
+  % & = \frac{n \bar{y}}{\lambda} - \frac{n}{1-e^{-\lambda}} \\
+  = \frac{n \bar{y}}{\lambda} - \frac{n}{1-e^{-\lambda}} \\
+%
+\mathcal{J}(\lambda|\widetilde{y}) 
+  & = \sum_{i=1}^n - U'(\lambda|y_i)
+  % & = \sum_{i=1}^n - U'(\lambda|y_i) \\
+  % & = \sum_{i=1}^n \left(-\frac{y_i}{\lambda^2} + \frac{4}{\sinh(\lambda/2)^2}\right) \\
+  % & = -\frac{\sum_{i=1}^n y_i}{\lambda^2} + \frac{4n}{\sinh(\lambda/2)^2} \\
+  % & = -\frac{n \bar{y}}{\lambda^2} + \frac{4n}{\sinh(\lambda/2)^2} \\
+  = -\frac{n \bar{y}}{\lambda^2} + \frac{4n}{\sinh(\lambda/2)^2} \\
+%
+\mathcal{I}_{\widetilde{Y}}(\lambda) 
+  & = n \mathcal{I}_Y(\lambda)
+  % & = n \mathcal{I}_Y(\lambda) \\
+  % & = n \cdot \left(-\frac{1}{\lambda} + \frac{4}{\sinh(\lambda/2)^2}\right)\\
+  % & = -\frac{n}{\lambda} + \frac{4}{\sinh(\lambda/2)^2} \\
+  = -\frac{n}{\lambda} + \frac{4}{\sinh(\lambda/2)^2} \\
 \end{align}
 $$
 by the additivity of the likelihood function of i.i.d. samples.
 
-Note that, in the worst case scenario $\widetilde{x}=\widetilde{0} \Rightarrow \bar{x}=0$, we have
+Since zeroes are excludes from the sample space, the worst case scenario from the regular Poisson model cannot occur, so the ML estimator comes from
 $$
-\ell(\lambda|\widetilde{0}) = - n \lambda
-\qquad
-U(\lambda|\widetilde{0}) = -n
-\qquad
-\mathcal{J}(\lambda|\widetilde{0}) = 0 
-\qquad
-\mathcal{I}(\lambda) = 0
+\ell'(\hat\lambda|\widetilde{y}) = 0
+  \Rightarrow
+    \frac{n \bar{y}}{\hat\lambda} - \frac{n}{1-e^{-\hat\lambda}} = 0
+  \Rightarrow
+    \frac{\hat\lambda}{\bar{y}} = 1-e^{-\hat\lambda}
 $$
-which does not give a valid estimator $\hat\lambda$, for $\ell(\lambda|\widetilde{0})$ is monotonically decreasing and would reach maximum in the limiting case $\lambda\to0$, outside the parametric space $(0,\infty)$.
+which is an equation in the form $ax=1-e^{-x}$ for $x>0$ and $a\le1$.
 
-Otherwise, when $\bar{x}\ne0$, the ML estimator comes from
 ```{r}
 #| label: fig-trunc-poi
 
