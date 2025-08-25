@@ -2,7 +2,9 @@
 title: "A Study on the Zero-Modified Poisson Model"
 author: "Marcelo Ventura Freire"
 format: 
-  # pdf
+  # pdf:
+  #   toc: true
+  #   number-sections: true
   html:
     embed-resources: true
     toc: true
