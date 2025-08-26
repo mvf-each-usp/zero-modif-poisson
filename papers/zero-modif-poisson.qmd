@@ -525,7 +525,7 @@ Constrained to the real domain, we can say about the function $y=xe^x$ that:
 The branch $W_0$ of the multibranch function $W_k$ restricted to the real domain play the role of the inverse of the function $y=xe^x$ over $x\in(-1,\infty)$, which renders $y\in(-1/e,\infty)$.
 
 ```{r}
-#| label: fig-functions-e^x-xe^x
+#| label: fig-functions-exp-xexp
 #| fig-cap: "Function $e^x$ and $xe^x$"
 
 ggplot() +
@@ -539,9 +539,8 @@ ggplot() +
   theme_classic()
 ```
 
-
 ```{r}
-#| label: fig-functions-log-W
+#| label: fig-functions-log-W0
 #| fig-cap: "Function $\\log(x)$ and $W_0(x)$"
 #| warning: false
 
@@ -557,7 +556,7 @@ ggplot() +
 ```
 
 ```{r}
-#| label: fig-functions-W-negat
+#| label: fig-functions-W0-negat
 #| fig-cap: "Functions $W_0(x)$ for $x> -1/e$"
 #| warning: false
 
