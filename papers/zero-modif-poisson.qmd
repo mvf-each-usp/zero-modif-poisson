@@ -29,6 +29,7 @@ library(lamW)
 ```
 
 
+<!-- ----------------------------------------------------------------------- -->
 
 ## Introduction
 
@@ -43,6 +44,7 @@ Soon...
 TO-DO: examples of phenomena with occurrences of over- and under-occurrences of zero observations.
 
 
+<!-- ----------------------------------------------------------------------- -->
 
 ## Definitions
 
@@ -177,6 +179,8 @@ $$
 so that the parametrization used in each context will be defined by the use of the three different parameters.
 
 
+
+<!-- ----------------------------------------------------------------------- -->
 
 ## The regular Poisson model
 
@@ -334,6 +338,8 @@ $$
 
 
 
+<!-- ----------------------------------------------------------------------- -->
+
 ## The zero-truncated Poisson model
 
 ### Log-likelihood and maximum likelihood estimation
@@ -486,6 +492,8 @@ $$
   & =  -\frac{4}{\sinh(\lambda/2)^2}  \\
 \end{align}
 $$
+<!-- ----------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------- -->
 
 
 <!-- ----------------------------------------------------------------------- -->
