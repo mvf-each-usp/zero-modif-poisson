@@ -456,7 +456,7 @@ $$
 \frac{\hat\lambda}{\bar{y}} = 1-e^{-\hat\lambda}
 $$
 
-For an analytic solution, we address the reader to the @sec-analytic-solution, where we establish that
+For an analytic solution, we address the reader to the @sec-analytic-solution-ML, where we establish that
 $$
 \hat\lambda_{ML} = \bar{y} + W_0(-\bar{y}e^{-\bar{y}})
 $$
@@ -572,7 +572,7 @@ ggplot() +
 
 #### Analytical solution of the ML estimator {#sec-analytic-solution-ML}
 
-Back to the estimation problem, the Lambert function $W_0(x)$ presented in the previous section will be useful after some transformation in original estimation equation.
+Back to the estimation problem, the Lambert function $W_0(x)$ presented in @sec-Lambert-W0 will be useful after some transformation in original estimation equation.
 
 Consider the estimation equation
 $$\frac{\hat\lambda}{\bar{y}} = 1-e^{-\hat\lambda}$$
