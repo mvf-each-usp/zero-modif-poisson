@@ -188,7 +188,7 @@ so that the parametrization used in each context will be defined by the use of t
 
 The log-likelihood function $\ell(\lambda|x)$, the score function $U(\lambda|x)$, observed information $\mathcal{J}(\lambda|x)$, and Fisher information $\mathcal{I}_X(\lambda)$ of a single observation $X \sim Poi(\lambda)$ are
 $$
-\begin{align}
+\begin{aligned}
 \ell(\lambda|x) 
   & = \log(P(X=x)) 
   % & = \log(P(X=x)) \\
@@ -216,14 +216,14 @@ U(\lambda|x)
   % & = \frac{\lambda}{\lambda^2} \\
   % & = \frac{1}{\lambda}
   = \frac{1}{\lambda}
-\end{align}
+\end{aligned}
 $$
 unless a term constant with respect to $\lambda$.
 
 
 For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the log-likelihood function $\ell(\lambda|\widetilde{x})$, the score function $U(\lambda|\widetilde{x})$, observed information $\mathcal{J}(\lambda|\widetilde{x})$, and Fisher information $\mathcal{I}_{\widetilde{X}}(\lambda)$ are
 $$
-\begin{align}
+\begin{aligned}
 \ell(\lambda|\widetilde{x}) 
   & = \sum_{i=1}^n \ell(\lambda|x_i)
   % & = \sum_{i=1}^n \ell(\lambda|x_i) \\
@@ -251,7 +251,7 @@ U(\lambda|\widetilde{x})
   % & = n \cdot \mathcal{I}_X(\lambda)  \\
   % & = \frac{n}{\lambda} \\
     = \frac{n}{\lambda}
-\end{align}
+\end{aligned}
 $$
 by the additivity of the likelihood function of i.i.d. samples.
 
@@ -346,7 +346,7 @@ $$
 
 The log-likelihood function $\ell(\lambda|y)$, the score function $U(\lambda|y)$, observed information $\mathcal{J}(\lambda|y)$, and Fisher information $\mathcal{I}_Y(\lambda)$ of a single observation $Y \sim ZTruncPoi(\lambda)$ are
 $$
-\begin{align}
+\begin{aligned}
 \ell(\lambda|y) 
   & = \log(P(Y=y)) 
   % & = \log(P(Y=y)) \\
@@ -380,13 +380,13 @@ U(\lambda|y)
   % & = -\frac{\lambda}{\lambda^2} + \frac{4}{\sinh(\lambda/2)^2} \\
   % & = -\frac{1}{\lambda} + \frac{4}{\sinh(\lambda/2)^2} \\
   = -\frac{1}{\lambda} + \frac{4}{\sinh(\lambda/2)^2} \\
-\end{align}
+\end{aligned}
 $$
 unless a term constant with respect to $\lambda$.
 
 For an i.i.d. sample $\widetilde{Y}=(Y_1,\ldots,Y_n)$, the log-likelihood function $\ell(\lambda|\widetilde{y})$, the score function $U(\lambda|\widetilde{y})$, observed information $\mathcal{J}(\lambda|\widetilde{y})$, and Fisher information $\mathcal{I}_{\widetilde{Y}}(\lambda)$ are
 $$
-\begin{align}
+\begin{aligned}
 \ell(\lambda|\widetilde{y}) 
   & = \sum_{i=1}^n \ell(\lambda|y_i) 
   % & = \sum_{i=1}^n \ell(\lambda|y_i) \\
@@ -417,7 +417,7 @@ U(\lambda|\widetilde{y})
   % & = n \cdot \left(-\frac{1}{\lambda} + \frac{4}{\sinh(\lambda/2)^2}\right)\\
   % & = -\frac{n}{\lambda} + \frac{4}{\sinh(\lambda/2)^2} \\
   = -\frac{n}{\lambda} + \frac{4}{\sinh(\lambda/2)^2} \\
-\end{align}
+\end{aligned}
 $$
 by the additivity of the likelihood function of i.i.d. samples.
 
