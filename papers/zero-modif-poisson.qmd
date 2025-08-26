@@ -468,29 +468,6 @@ If available, the use of $W_0$ frees us from using numeric solution.
 
 
 $$
-\begin{align}
-\frac{d}{d\lambda}\log(e^\lambda-1) 
-  & = \frac{1}{e^\lambda-1}\frac{d}{d\lambda}(e^\lambda-1) 
-    = \frac{1}{e^\lambda-1}e^\lambda 
-    = \frac{1}{1-e^{-\lambda}}\\
-\frac{d}{d\lambda} \frac{1}{1-e^{-\lambda}}
-  & =  \frac{d}{d\lambda} (1-e^{-\lambda})^{-1}   
-    =  (-1)(1-e^{-\lambda})^{-2} \frac{d}{d\lambda} (1-e^{-\lambda}) \\
-  & =  -\frac{1}{(1-e^{-\lambda})^2} \frac{d}{d\lambda}(-e^{-\lambda})   
-    =  \frac{1}{(1-e^{-\lambda})^2} \frac{d}{d\lambda} e^{-\lambda} \\
-  & =  \frac{1}{(1-e^{-\lambda})^2} e^{-\lambda}\frac{d}{d\lambda} (-\lambda)   
-    =  \frac{e^{-\lambda}}{(1-e^{-\lambda})^2} (-1) \\
-  & =  -\frac{e^{-\lambda}}{(1-e^{-\lambda})^2}    
-    =  -\frac{(e^{-\lambda/2})^2}{(1-e^{-\lambda})^2}    
-    =  -\left(\frac{e^{-\lambda/2}}{1-e^{-\lambda}}\right)^2 \\
-  & = -\left(\frac{e^{-\lambda/2}}{1-e^{-\lambda}}\right)^2   
-    =  -\left(\frac{e^{-\lambda/2}e^{\lambda/2}}{(1-e^{-\lambda})e^{\lambda/2}}\right)^2  \\
-  & =  -\left(\frac{1}{e^{\lambda/2}-e^{-\lambda+\lambda/2}}\right)^2   
-    =  -\left(\frac{1}{e^{\lambda/2}-e^{-\lambda/2}}\right)^2  \\
-  & =  -\frac{1}{(e^{\lambda/2}-e^{-\lambda/2})^2}    
-    =  -\frac{1}{(2\sinh(\lambda/2))^2}  \\
-  & =  -\frac{4}{\sinh(\lambda/2)^2}  \\
-\end{align}
 $$
 <!-- ----------------------------------------------------------------------- -->
 <!-- ----------------------------------------------------------------------- -->
@@ -567,6 +544,37 @@ ggplot() +
   theme_classic()
 ```
 
+
+
+### Zero-truncated Poisson model
+
+#### Derivatives used to study the log-likelihood
+
+$$
+\begin{aligned}
+\frac{d}{d\lambda}\log(e^\lambda-1) 
+  & = \frac{1}{e^\lambda-1}\frac{d}{d\lambda}(e^\lambda-1) 
+    = \frac{1}{e^\lambda-1}e^\lambda 
+    = \frac{1}{1-e^{-\lambda}}\\
+\frac{d}{d\lambda} \frac{1}{1-e^{-\lambda}}
+  & =  \frac{d}{d\lambda} (1-e^{-\lambda})^{-1}   
+    =  (-1)(1-e^{-\lambda})^{-2} \frac{d}{d\lambda} (1-e^{-\lambda}) \\
+  & =  -\frac{1}{(1-e^{-\lambda})^2} \frac{d}{d\lambda}(-e^{-\lambda})   
+    =  \frac{1}{(1-e^{-\lambda})^2} \frac{d}{d\lambda} e^{-\lambda} \\
+  & =  \frac{1}{(1-e^{-\lambda})^2} e^{-\lambda}\frac{d}{d\lambda} (-\lambda)   
+    =  \frac{e^{-\lambda}}{(1-e^{-\lambda})^2} (-1) \\
+  & =  -\frac{e^{-\lambda}}{(1-e^{-\lambda})^2}    
+    =  -\frac{(e^{-\lambda/2})^2}{(1-e^{-\lambda})^2}    
+    =  -\left(\frac{e^{-\lambda/2}}{1-e^{-\lambda}}\right)^2 \\
+  & = -\left(\frac{e^{-\lambda/2}}{1-e^{-\lambda}}\right)^2   
+    =  -\left(\frac{e^{-\lambda/2}e^{\lambda/2}}{(1-e^{-\lambda})e^{\lambda/2}}\right)^2  \\
+  & =  -\left(\frac{1}{e^{\lambda/2}-e^{-\lambda+\lambda/2}}\right)^2   
+    =  -\left(\frac{1}{e^{\lambda/2}-e^{-\lambda/2}}\right)^2  \\
+  & =  -\frac{1}{(e^{\lambda/2}-e^{-\lambda/2})^2}    
+    =  -\frac{1}{(2\sinh(\lambda/2))^2}  \\
+  & =  -\frac{4}{\sinh(\lambda/2)^2}  \\
+\end{aligned}
+$$
 
 
 
