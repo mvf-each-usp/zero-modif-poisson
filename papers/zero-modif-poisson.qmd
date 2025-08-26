@@ -459,9 +459,7 @@ where $W_0$ is the main branch of Lambert function $W_k$, which plays the role o
 If available, the use of $W_0$ frees us from using numeric solution.
 
 
-#### Useful developments
 
-##### Derivatives used to study the log-likelihood of $Y$
 
 $$
 \begin{align}
@@ -489,9 +487,12 @@ $$
 \end{align}
 $$
 
-##### The Lambert function $W_k(x)$
 
-Otherwise than numerically, $\hat\lambda$ can be found using the Lambert function $W_0$.
+<!-- ----------------------------------------------------------------------- -->
+
+## Appendix 
+
+### The Lambert function $W_0(x)$ {#sec-Lambert-W0}
 
 The general multibranch $W_k(z)$ is meant to revert $y=xe^x$ on the complex domain, so that every element $z$ of the set $S(y)=\bigcup_{k\in\mathbb{Z}}\{W_k(y)\}$ has the property $ze^z=y$ for every $y\in\mathbb{C}$.
 
@@ -562,7 +563,7 @@ ggplot() +
 
 
 
-##### Analytical solution to $ax=1-e^{-x}$ {#sec-analytic-solution}
+#### Analytical solution of the ML estimator {#sec-analytic-solution-ML}
 
 Back to the estimation problem, the Lambert function $W_0(x)$ presented in the previous section will be useful after some transformation in original estimation equation.
 
