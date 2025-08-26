@@ -439,7 +439,70 @@ Since $\hat\lambda_{LS}=\hat\lambda_{MM}=\hat\lambda_{ML}$, its expected value, 
 
 ## The zero-truncated Poisson model
 
-### Log-likelihood and maximum likelihood estimation
+### Moments of the distribution
+
+The first to moments $\mu_1(\lambda)$ and $\mu_2(\lambda)$ are
+$$
+\begin{aligned}
+\mu_1(\lambda) 
+  & = \mathbb{E}(Y)    
+    = \sum_{y=1}^\infty y \frac{\lambda^y}{(e^\lambda-1)y!}   
+    = \frac{1}{e^\lambda-1} \sum_{y=1}^\infty \frac{\lambda^{y-1}\lambda}{(y-1)!} \\
+  & = \frac{\lambda}{e^\lambda-1} \sum_{y=1}^\infty \frac{\lambda^{y-1}}{(y-1)!} 
+    = \frac{\lambda}{e^\lambda-1} \sum_{y=0}^\infty \frac{\lambda^y}{y!}   
+    = \frac{\lambda}{e^\lambda-1} e^\lambda \\
+  & = \frac{\lambda e^\lambda}{e^\lambda-1}   
+    = \frac{\lambda}{1 - e^{-\lambda}} \\
+\mu_2(\lambda) 
+  & = \mathbb{E}(Y^2)   
+    = \sum_{y=1}^\infty y^2 \frac{\lambda^y}{(e^\lambda-1)y!}   
+    = \frac{1}{e^\lambda-1}\sum_{y=1}^\infty y \frac{\lambda^{y-1}\lambda}{(y-1)!} \\
+  & = \frac{\lambda}{e^\lambda-1}\sum_{y=0}^\infty (y+1) \frac{\lambda^{y}}{y!}   
+    = \frac{\lambda}{e^\lambda-1}
+        \sum_{y=0}^\infty 
+          \left(
+            y \frac{\lambda^{y}}{y!} 
+            + \frac{\lambda^{y}}{y!}
+          \right) \\
+  & = \frac{\lambda}{e^\lambda-1} 
+      \left(
+        \sum_{y=0}^\infty y\frac{\lambda^{y}}{y!} 
+        + \sum_{y=0}^\infty\frac{\lambda^{y}}{y!}
+      \right)   
+    = \frac{\lambda}{e^\lambda-1} 
+      \left(
+        \sum_{y=1}^\infty y\frac{\lambda^{y}}{y!} 
+        + e^\lambda
+      \right) \\
+  & = \frac{\lambda}{e^\lambda-1} 
+      \left(
+        \sum_{y=1}^\infty \frac{\lambda^{y-1}\lambda}{(y-1)!} 
+        + e^\lambda
+      \right)   
+    = \frac{\lambda}{e^\lambda-1} 
+      \left(
+        \lambda \sum_{y=0}^\infty \frac{\lambda^{y}}{y!} 
+        + e^\lambda
+      \right) \\
+  & = \frac{\lambda}{e^\lambda-1} (\lambda e^\lambda + e^\lambda)   
+    = \frac{\lambda(\lambda + 1) e^\lambda}{e^\lambda-1}
+    = \frac{\lambda(\lambda + 1)}{1-e^{-\lambda}} \\
+\end{aligned}
+$$
+
+The variance $Var(X)$ is
+$$
+\begin{aligned}
+Var(X) 
+  & = \mu_2(\lambda) - \mu_1(\lambda)^2   
+    = \frac{\lambda(\lambda + 1)}{1-e^{-\lambda}} 
+      - \left(\frac{\lambda}{1 - e^{-\lambda}}\right)^2 \\
+\end{aligned}
+$$
+
+
+
+### Log-likelihood of the distribution and related functions
 
 The log-likelihood function $\ell(\lambda|y)$, the score function $U(\lambda|y)$, observed information $\mathcal{J}(\lambda|y)$, and Fisher information $\mathcal{I}_Y(\lambda)$ of a single observation $Y \sim ZTruncPoi(\lambda)$ are
 $$
@@ -480,6 +543,10 @@ U(\lambda|y)
 \end{aligned}
 $$
 unless a term constant with respect to $\lambda$.
+
+
+
+### Maximum likelihood estimation
 
 For an i.i.d. sample $\widetilde{Y}=(Y_1,\ldots,Y_n)$, the log-likelihood function $\ell(\lambda|\widetilde{y})$, the score function $U(\lambda|\widetilde{y})$, observed information $\mathcal{J}(\lambda|\widetilde{y})$, and Fisher information $\mathcal{I}_{\widetilde{Y}}(\lambda)$ are
 $$
@@ -564,8 +631,90 @@ If available, the use of $W_0$ frees us from using numeric solution.
 
 
 
+
+### Moments and method of moments estimation
+
+For one parameter, the first moment will be enough for estimation, so we will solve the equation derived from
 $$
+\mu_k(\hat\lambda) = m_k = \frac{1}{n}\sum_{i=1}^n y_i^k
 $$
+with only $k=1$, so that $\mu_1(\hat\lambda)=m_1$ is enough.
+
+Now,
+$$
+\begin{aligned}
+\mu_1(\lambda) 
+  & = \mathbb{E}(Y^1) 
+  % & = \mathbb{E}(Y^1)  \\
+  % & = \sum_{y=1}^\infty \frac{\lambda^y}{(e^\lambda-1)y!} \\
+  % & = \frac{1}{(e^\lambda-1)} \sum_{y=1}^\infty \frac{\lambda^y}{y!} \\
+  % & = \frac{1}{(e^\lambda-1)e^{-\lambda}} \sum_{y=1}^\infty \frac{e^{-\lambda}\lambda^y}{y!} \\
+  % & = \frac{1}{(e^\lambda-1)e^{-\lambda}} 
+  %     \left(\sum_{y=0}^\infty \frac{e^{-\lambda}\lambda^y}{y!} - e^{-\lambda} \right) \\
+  % & = \frac{1}{(e^\lambda-1)e^{-\lambda}} \left(\mathbb{E}(X) - e^{-\lambda} \right) \\
+  % & = \frac{\lambda - e^{-\lambda}}{(e^\lambda - 1)e^{-\lambda}} \\
+  % & = \frac{\lambda e^\lambda - 1}{e^\lambda - 1} \\
+  = \frac{\lambda e^\lambda - 1}{e^\lambda - 1} \\
+\end{aligned}
+$$
+then the estimation equation $\mu_1(\hat\lambda)=m_1$ becomes
+$$
+\frac{\hat\lambda_1 e^{\hat\lambda_1} - 1}{e^{\hat\lambda_1}-1} = \bar{y}
+$$
+so
+$$
+\begin{aligned}
+\frac{\hat\lambda e^{\hat\lambda} - 1}{e^{\hat\lambda} - 1} & = \bar{y} \\
+\hat\lambda e^{\hat\lambda} - 1 & = \bar{y}(e^{\hat\lambda} - 1) = \bar{y}e^{\hat\lambda} - \bar{y}\\
+\hat\lambda e^{\hat\lambda} - \bar{y}e^{\hat\lambda} & = - \bar{y} + 1\\
+(\hat\lambda - \bar{y}) e^{\hat\lambda} & = - \bar{y} + 1\\
+\end{aligned}
+$$
+
+When $\bar{y}=1$ (i.e., $y_1=\ldots=y_n=1$), that equation becomes $(\hat\lambda - 1) e^{\hat\lambda} = 0$, whose only solution is $\hat\lambda=1$ since $e^{\hat\lambda}>0$.
+
+Otherwise, if $\bar{y}>1$, then $\hat\lambda_{MM}$ can be found solving numerically an equation, but there is the analytic solution too
+$$
+\hat\lambda_{MM} = \bar{y} + W_0(- (\bar{y} - 1)e^{-\bar{y}})
+$$
+with the details in @sec-analytic-solution-MM, in which $W_0(- (\bar{y} - 1)e^{-\bar{y}})$ also plays the role of a different bias correction compared to the ML estimation with $\hat\lambda_{ML} = \bar{y} + W_0(-\bar{y}e^{-\bar{y}})$.
+
+
+
+### Least square estimation
+
+Since the zero-truncated Poisson distribution has only one parameter, the least squares estimator $\hat\lambda_{LS}$ will be the same as the method of moments estimator $\hat\lambda_{MM}$ seen above, namely 
+$$
+\hat\lambda_{LS} = \hat\lambda_{MM} = \bar{y} + W_0(- (\bar{y} - 1)e^{-\bar{y}})
+$$
+because the LS estimation equation for an i.i.d. sample $\widetilde{Y}=(Y_1,\ldots,Y_n)$ will fall on the exact same estimation equation of the MM estimation equation, namely the loss function $SS(\ell)$ for the choice of a value $\ell$ for $\hat\lambda$ is
+$$
+SS(\ell) = \sum_{i=1}^n (y_i - \mu_1(\ell))^2
+$$
+whose derivative $SS'(\ell)$ is
+$$
+\begin{aligned}
+SS'(\ell)
+  & = \frac{d}{d\ell} \sum_{i=1}^n (y_i - \mu_1(\ell))^2\\
+  & = - 2 \sum_{i=1}^n (y_i - \mu_1(\ell)) \mu_1'(\ell)\\
+  & = - 2 \mu_1'(\ell) \sum_{i=1}^n (y_i - \mu_1(\ell))\\
+\end{aligned}
+$$
+which, equated to 0, will give
+$$
+\begin{aligned}
+- 2 \mu_1'(\hat\lambda_{LS}) \sum_{i=1}^n (y_i - \mu_1(\hat\lambda_{LS})) & = 0 \\
+\sum_{i=1}^n (y_i - \mu_1(\hat\lambda_{LS})) & = 0 \\
+\mu_1(\hat\lambda_{LS}) & = \bar{y} = m_1
+\end{aligned}
+$$
+which is the same as 
+$$
+\mu_1(\hat\lambda_{MM})=m_1.
+$$
+
+
+
 <!-- ----------------------------------------------------------------------- -->
 
 ## The zero-inflated Poisson model
