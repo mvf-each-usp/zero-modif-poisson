@@ -567,6 +567,17 @@ If available, the use of $W_0$ frees us from using numeric solution.
 $$
 $$
 <!-- ----------------------------------------------------------------------- -->
+
+## The zero-inflated Poisson model
+
+### Log-likelihood and maximum likelihood estimation
+
+### Moments and method of moments estimation
+
+### Least squares estimation
+
+
+
 <!-- ----------------------------------------------------------------------- -->
 
 
