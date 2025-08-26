@@ -597,113 +597,40 @@ $$
 \hat\lambda = \bar{y} + W_0(-\bar{y}e^{-\bar{y}}).
 $$
 
-Since $\bar{y}>1$, we have $-\bar{y}e^{-\bar{y}}<0$, which gives $W_0(-\bar{y}e^{-\bar{y}})<0$, so that $\laht\lambda$ is $\bar{y}$ minus a bias correction term that takes into account the fact that all zero observations were excluded before taking the average $\bar{y}$.
+Since $\bar{y}>1$, we have $-\bar{y}e^{-\bar{y}}<0$, which gives $W_0(-\bar{y}e^{-\bar{y}})<0$, so that $\hat\lambda$ is $\bar{y}$ minus a bias correction term that takes into account the fact that all zero observations were excluded before taking the average $\bar{y}$.
 
 
 
-### Moments and method of moments estimation
+#### Analytical solution of the MM estimator {#sec-analytic-solution-MM}
 
-It is straightforward to get $\hat\lambda_{MM}$.
-
-For one parameter, the first moment will be enough for estimation.
-
-Since 
+The estimation equation 
 $$
-\mu_1 = \mathbb{E}(X^1) = \lambda,
+(\hat\lambda - \bar{y}) e^{\hat\lambda} = - \bar{y} + 1
 $$
-then 
+becomes, after changing variables $u=\hat\lambda - \bar{y}$ and $\hat\lambda = u + \bar{y}$, 
 $$
-\frac{1}{n} \sum_{i=1}^n x_i^1 = \hat\lambda_1,
-$$
-so
-$$
-\hat\lambda_{MM} = \bar{x}.
+\begin{aligned}
+ue^{u + \bar{y}} & = ue^u e^{\bar{y}} = - \bar{y} + 1\\
+ue^u & = - (\bar{y} - 1)e^{-\bar{y}}.
+\end{aligned}
 $$
 
-
-
-### Least square estimation
-
-Also straightforward.
-
-For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the loss function $SS(\ell)$ for the choice of a value $\ell$ for $\hat\lambda$ is
+Once granted $\bar{y}>1$, $-(\bar{y} - 1)e^{-\bar{y}} < 0$, we will have 
 $$
-SS(\ell) = \sum_{i=1}^n (x_i - \ell)^2
+\bar{y} > 1  \Rightarrow \bar{y} - 1 > 0 \Rightarrow -(\bar{y} - 1) < 0 \Rightarrow -(\bar{y} - 1)e^{-\bar{y}} < 0
 $$
-whose derivative $SS'(\ell)$ is
+on one hand and, on the other hand, 
 $$
-SS'(\ell) = \sum_{i=1}^n -2(x_i - \ell)
+-(\bar{y} - 1)e^{-\bar{y}} = -\bar{y}e^{-\bar{y}} + e^{-\bar{y}} > -\bar{y}e^{-\bar{y}} > -1/e,
 $$
-which, when equaled to zero, $SS'(\ell^*) = 0$ gives
+therefore $-1/e < -(\bar{y} - 1)e^{-\bar{y}} < 0$ and we can use once again the Lambert function $W_0$ to find $\hat\lambda$:
 $$
-\sum_{i=1}^n -2(x_i - \ell^*) = 0 
-  \Rightarrow
-    n\ell^* = \sum_{i=1}^n x_i
-$$
-therefore
-$$
-\hat\lambda_{LS} = \bar{x}.
+\begin{aligned}
+W_0(ue^u) & = W_0(- (\bar{y} - 1)e^{-\bar{y}})\\
+u & = \hat\lambda - \bar{y} = W_0(- (\bar{y} - 1)e^{-\bar{y}})\\
+\hat\lambda & = \bar{y} + W_0(- (\bar{y} - 1)e^{-\bar{y}})\\
+\end{aligned}
 $$
 
-
-
-
-
-
-
-## The zero-inflated Poisson model
-
-### Log-likelihood and maximum likelihood estimation
-
-### Least squares estimation
-
-### Moments and method of moments estimation
-
-
-
-
-## The general zero-modified Poisson model
-
-### Moments and method of moments estimation
-
-### Log-likelihood and maximum likelihood estimation
-
-The log-likelihood of a single observation $Z \sim ZModPoi(p, \lambda)$ is
-$$
-\begin{align}
-\ell(p,\lambda|0) 
-  & = \log(p) \\
-\ell(p,\lambda|z)
-  & = \log\left(\frac{(1-p)\lambda^z}{(e^\lambda-1)z!}\right)
-    = \log(1-p)+z\log(\lambda)-\log(e^\lambda-1)
-\end{align}
-$$
-for $z=1,2,\ldots$
-
-
-and for an i.i.d. sample $Z_1,Z_2,\ldots,X_n$ of $ZModPoi(p, \lambda)$, we have
-$$
-\begin{align}
-\ell(p,\lambda|z_1,\ldots,z_n)
-  & = \sum_{i=1}^n \ell(p,\lambda|z_i) \\
-  & = \sum_{i \in M}^n \ell(p,\lambda|z_i) +
-      \sum_{i \not\in M}^n \ell(p,\lambda|z_i) \\
-  & = m \log(p) +
-      \sum_{i \not\in M}^n \log(1-p)+z\log(\lambda)-\log(e^\lambda-1) \\
-  
-  
-  
-  
-  & = P(Z_1=z_1,\ldots,Z_n=z_n) \\
-  & = \prod_{i=1}^n P(Z=z_i) \\
-  & = \prod_{i \in M} P(Z=z_i) \times
-      \prod_{i \not\in M} P(Z=z_i) \\
-  & = \prod_{i \in M} P(Z=0) \times
-      \prod_{i \not\in M} P(Z=z_i) \\
-  & = \prod_{i \in M} e^{-\lambda} \times
-      \prod_{i \not\in M} P(Z=z_i) \\
-\end{align}
-$$
-where $M$ is the set $M=\{i=1,2,\ldots,n|z_i=0\}$ of positions of the observed zeroes and $m=#M$ is its size.
 
 
