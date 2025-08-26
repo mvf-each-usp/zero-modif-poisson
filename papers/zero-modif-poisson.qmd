@@ -580,6 +580,52 @@ $$
 
 <!-- ----------------------------------------------------------------------- -->
 
+## The general zero-modified Poisson model
+
+### Log-likelihood and maximum likelihood estimation
+
+The log-likelihood of a single observation $Z \sim ZModPoi(p, \lambda)$ is
+$$
+\begin{aligned}
+\ell(p,\lambda|0) 
+  & = \log(p) \\
+\ell(p,\lambda|z)
+  & = \log\left(\frac{(1-p)\lambda^z}{(e^\lambda-1)z!}\right)
+    = \log(1-p)+z\log(\lambda)-\log(e^\lambda-1)
+\end{aligned}
+$$
+for $z=1,2,\ldots$
+
+
+and for an i.i.d. sample $Z_1,Z_2,\ldots,X_n$ of $ZModPoi(p, \lambda)$, we have
+$$
+\begin{aligned}
+\ell(p,\lambda|z_1,\ldots,z_n)
+  & = \sum_{i=1}^n \ell(p,\lambda|z_i) \\
+  & = \sum_{i \in M}^n \ell(p,\lambda|z_i) +
+      \sum_{i \not\in M}^n \ell(p,\lambda|z_i) \\
+  & = m \log(p) +
+      \sum_{i \not\in M}^n \log(1-p)+z\log(\lambda)-\log(e^\lambda-1) \\
+  \\
+  \\
+  & = P(Z_1=z_1,\ldots,Z_n=z_n) \\
+  & = \prod_{i=1}^n P(Z=z_i) \\
+  & = \prod_{i \in M} P(Z=z_i) \times
+      \prod_{i \not\in M} P(Z=z_i) \\
+  & = \prod_{i \in M} P(Z=0) \times
+      \prod_{i \not\in M} P(Z=z_i) \\
+  & = \prod_{i \in M} e^{-\lambda} \times
+      \prod_{i \not\in M} P(Z=z_i) \\
+\end{aligned}
+$$
+where $M$ is the set $M=\{i=1,2,\ldots,n|z_i=0\}$ of positions of the observed zeroes and $m=\#M$ is its size.
+
+### Moments and method of moments estimation
+
+### Least squares estimation
+
+
+
 
 <!-- ----------------------------------------------------------------------- -->
 
