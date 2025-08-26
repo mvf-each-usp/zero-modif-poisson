@@ -184,7 +184,51 @@ so that the parametrization used in each context will be defined by the use of t
 
 ## The regular Poisson model
 
-### Log-likelihood and maximum likelihood estimation
+### Moments of the distribution
+
+The first to moments $\mu_1(\lambda)$ and $\mu_2(\lambda)$ are
+$$
+\begin{aligned}
+\mu_1(\lambda) 
+  & = \mathbb{E}(X) \\
+  & = \sum_{x=0}^\infty x \frac{e^{-\lambda}\lambda^x}{x!}   
+    = \sum_{x=1}^\infty x \frac{e^{-\lambda}\lambda^x}{x!}   
+    = \sum_{x=1}^\infty \frac{e^{-\lambda}\lambda^{x-1}\lambda}{(x-1)!} \\
+  & = \lambda \sum_{x=1}^\infty \frac{e^{-\lambda}\lambda^{x-1}}{(x-1)!}   
+    = \lambda \sum_{x=0}^\infty \frac{e^{-\lambda}\lambda^x}{x!}   
+    = \lambda \\
+\mu_2(\lambda) 
+  & = \mathbb{E}(X^2) \\
+  & = \sum_{x=0}^\infty x^2 \cdot P(X=k)   
+    = \sum_{x=0}^\infty x^2 \frac{e^{-\lambda}\lambda^x}{x!}   
+    = \sum_{x=1}^\infty x^2 \frac{e^{-\lambda}\lambda^x}{x!} \\
+  & = \sum_{x=1}^\infty x \frac{e^{-\lambda}\lambda^{x-1}\lambda}{(x-1)!}   
+    = \lambda\sum_{x=1}^\infty (x - 1 + 1) \frac{e^{-\lambda}\lambda^{x-1}}{(x-1)!} \\
+  & = \lambda\sum_{x=1}^\infty (x - 1) \frac{e^{-\lambda}\lambda^{x-1}}{(x-1)!}
+      + \lambda\sum_{x=1}^\infty \frac{e^{-\lambda}\lambda^{x-1}}{(x-1)!} \\
+  & = \lambda\sum_{x=2}^\infty (x - 1) \frac{e^{-\lambda}\lambda^{x-1}}{(x-1)!}
+      + \lambda\sum_{x=0}^\infty \frac{e^{-\lambda}\lambda^{x}}{x!} \\
+  & = \lambda\sum_{x=2}^\infty \frac{e^{-\lambda}\lambda^{x-2}\lambda}{(x-2)!}
+      + \lambda   
+    = \lambda^2\sum_{x=0}^\infty \frac{e^{-\lambda}\lambda^{x}}{x!} + \lambda   
+    = \lambda^2 + \lambda \\
+\end{aligned}
+$$
+since $\sum_{x=0}^\infty \lambda^x/x! = e^\lambda$ and $\sum_{x=0}^\infty e^{-\lambda}\lambda^x/x! = e^{-\lambda}\sum_{x=0}^\infty \lambda^x/x! = e^{-\lambda}e^{\lambda}=1$.
+
+The variance $Var(X)$ is
+$$
+\begin{aligned}
+Var(X) 
+  & = \mu_2(\lambda) - \mu_1(\lambda)^2
+    = \lambda^2 + \lambda - \lambda^2
+    = \lambda
+\end{aligned}
+$$
+
+
+
+### Log-likelihood of the distribution and related functions
 
 The log-likelihood function $\ell(\lambda|x)$, the score function $U(\lambda|x)$, observed information $\mathcal{J}(\lambda|x)$, and Fisher information $\mathcal{I}_X(\lambda)$ of a single observation $X \sim Poi(\lambda)$ are
 $$
@@ -220,6 +264,8 @@ U(\lambda|x)
 $$
 unless a term constant with respect to $\lambda$.
 
+
+### Maximum likelihood estimation
 
 For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the log-likelihood function $\ell(\lambda|\widetilde{x})$, the score function $U(\lambda|\widetilde{x})$, observed information $\mathcal{J}(\lambda|\widetilde{x})$, and Fisher information $\mathcal{I}_{\widetilde{X}}(\lambda)$ are
 $$
@@ -292,24 +338,71 @@ $$
 $$
 
 
+
+#### Bias, variance and mean square error
+
+The expected value of $\hat\lambda$ is
+
+$$
+\begin{aligned}
+\mathbb{E}(\hat\lambda)
+  & = \mathbb{E}(\bar{X}) 
+    = \mathbb{E}\left(\frac{1}{n}\sum_{i=1}^n X_i\right) 
+    = \frac{1}{n}\sum_{i=1}^n \mathbb{E}(X_i) 
+    = \frac{1}{n}n \lambda 
+    = \lambda \\
+\end{aligned}
+$$
+so the ML estimator is unbiased for $\lambda$
+$$
+\begin{aligned}
+B(\hat\lambda, \lambda)
+  & = (\mathbb{E}(\hat\lambda) - \lambda)^2
+    = (\lambda - \lambda)^2 
+    = 0
+\end{aligned}
+$$
+and its variance is
+$$
+\begin{aligned}
+Var(\hat\lambda) 
+  = Var\left(\frac{1}{n}\sum_{i=1}^n X_i\right)
+  = \frac{1}{n^2}\sum_{i=1}^n Var\left(X_i\right)
+  = \frac{1}{n^2} n\lambda
+  = \frac{\lambda}{n}
+\end{aligned}
+$$
+so that its mean square error is
+$$
+\begin{aligned}
+MSE(\hat\lambda, \lambda)
+  & = \mathbb{E}\left( (\hat\lambda - \lambda)^2  \right) 
+    = Var(\hat\lambda) + B(\hat\lambda, \lambda)
+    = \frac{\lambda}{n} + 0 
+    = \frac{\lambda}{n} 
+\end{aligned}
+$$
+
+
+
 ### Moments and method of moments estimation
 
 It is straightforward to get $\hat\lambda_{MM}$.
 
-For one parameter, the first moment will be enough for estimation.
+For one parameter, the first moment will be enough for estimation, so we will solve the equation derived from
+$$
+\mu_k(\hat\lambda) = m_k = \frac{1}{n}\sum_{i=1}^n x_i^k
+$$
+with only $k=1$.
 
-Since 
-$$
-\mu_1 = \mathbb{E}(X^1) = \lambda,
-$$
-then 
-$$
-\frac{1}{n} \sum_{i=1}^n x_i^1 = \hat\lambda_1,
-$$
-so
-$$
-\hat\lambda_{MM} = \bar{x}.
-$$
+Since $\mu_1(\lambda) = \lambda$ and $m_1 = \bar{x}$, then $\hat\lambda_{MM} = \bar{x}$.
+
+
+
+#### Bias, variance and mean square error
+
+Since $\hat\lambda_{MM}=\hat\lambda_{ML}$, its expected value, bias, variance and mean square error are the same of the ML estimator.
+
 
 
 
@@ -319,7 +412,7 @@ Also straightforward.
 
 For an i.i.d. sample $\widetilde{X}=(X_1,\ldots,X_n)$, the loss function $SS(\ell)$ for the choice of a value $\ell$ for $\hat\lambda$ is
 $$
-SS(\ell) = \sum_{i=1}^n (x_i - \ell)^2
+SS(\ell) = \sum_{i=1}^n (x_i - \mu_1(\ell))^2 = \sum_{i=1}^n (x_i - \ell)^2
 $$
 whose derivative $SS'(\ell)$ is
 $$
@@ -335,6 +428,10 @@ therefore
 $$
 \hat\lambda_{LS} = \bar{x}.
 $$
+
+#### Bias, variance and mean square error
+
+Since $\hat\lambda_{LS}=\hat\lambda_{MM}=\hat\lambda_{ML}$, its expected value, bias, variance and mean square error are the same of ML and MM estimators.
 
 
 
